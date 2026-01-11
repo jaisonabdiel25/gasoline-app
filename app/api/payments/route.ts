@@ -27,3 +27,15 @@ export async function GET(request: NextRequest) {
   });
   return NextResponse.json(payments);
 }
+
+export async function POST(request: NextRequest) {
+
+  const body = await request.json();
+
+  const result = await prisma.payment.createMany({
+    data: body,
+  })
+
+  return NextResponse.json(result);
+}
+
