@@ -1,4 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
+import { createValidator } from "@/app/validator/payments";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -32,8 +33,14 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json();
 
+  const paymentToCreate = await createValidator.validate(body);
+
+  const paymentListToCreate = paymentToCreate?.map(payment => ({
+    amount: payment.amount,
+  }))
+
   const result = await prisma.payment.createMany({
-    data: body,
+    data: paymentListToCreate!,
   })
 
   return NextResponse.json(result);
