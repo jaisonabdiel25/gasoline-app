@@ -30,19 +30,22 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
 
-  const body = await request.json();
+    const paymentToCreate = await createValidator.validate(body);
 
-  const paymentToCreate = await createValidator.validate(body);
+    const paymentListToCreate = paymentToCreate?.map((payment) => ({
+      amount: payment.amount,
+      userId: "b2f1409d-6103-4a39-973f-3acb034ce06f", //TODO: Replace with authenticated user ID
+    }));
 
-  const paymentListToCreate = paymentToCreate?.map(payment => ({
-    amount: payment.amount,
-  }))
+    const result = await prisma.payment.createMany({
+      data: paymentListToCreate!,
+    });
 
-  const result = await prisma.payment.createMany({
-    data: paymentListToCreate!,
-  })
-
-  return NextResponse.json(result);
+    return NextResponse.json(result);
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
 }
-
