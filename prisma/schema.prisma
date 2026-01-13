@@ -7,8 +7,21 @@ datasource db {
 }
 
 model Payment {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   amount    Float
-  createdAt DateTime @default(now()) @db.Timestamptz
+  createdAt DateTime  @default(now()) @db.Timestamptz
   updatedAt DateTime? @db.Timestamptz
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  firstName String
+  lastName  String
+  createdAt DateTime  @default(now()) @db.Timestamptz
+  updatedAt DateTime? @db.Timestamptz
+  password  String
+  payments  Payment[]
 }
