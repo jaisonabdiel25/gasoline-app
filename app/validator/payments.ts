@@ -1,7 +1,12 @@
-import * as yup from 'yup';
+import * as yup from "yup";
 
 export const createValidator = yup.array().of(
   yup.object({
-    amount:  yup.number().required(),
+    amount: yup.number().required(),
   })
-)
+);
+
+export const updatePaymentValidator = yup.object({
+  amount: yup.number().optional(),
+  userId: yup.string().uuid().optional(),
+});
