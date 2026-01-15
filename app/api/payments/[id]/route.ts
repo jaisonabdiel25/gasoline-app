@@ -25,3 +25,24 @@ export async function GET(request: NextRequest, { params }: Params) {
 
   return NextResponse.json(payment);
 }
+
+export async function PUT(request: NextRequest, { params }: Params) {
+  const { id } = params;
+
+  const payment = await prisma.payment.findFirst({
+    where: {
+      id: id,
+    },
+  });
+
+  if (!payment) {
+    return NextResponse.json(
+      { message: "Payment not found" },
+      { status: 404 }
+    );
+  }
+
+  
+
+  return NextResponse.json(payment);
+}
