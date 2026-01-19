@@ -11,14 +11,14 @@ export async function GET(request: NextRequest) {
   if (isNaN(size)) {
     return NextResponse.json(
       { error: "Invalid size parameter" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
   if (isNaN(page)) {
     return NextResponse.json(
       { error: "Invalid page parameter" },
-      { status: 400 }
+      { status: 400 },
     );
   }
 
@@ -35,13 +35,38 @@ export async function POST(request: NextRequest) {
 
     const paymentToCreate = await createValidator.validate(body);
 
-    const paymentListToCreate = paymentToCreate?.map((payment) => ({
-      amount: payment.amount,
-      userId: "b2f1409d-6103-4a39-973f-3acb034ce06f", //TODO: Replace with authenticated user ID
+    const userIds = paymentToCreate?.map(({ userId }) => userId);
+
+    const existingUsers = await prisma.user.findMany({
+      where: { id: { in: userIds } },
+      select: { id: true },
+    });
+    const existingUserIds = new Set(existingUsers.map((user) => user.id));
+
+    const invalidUserIds =
+      userIds?.filter((userId) => !existingUserIds.has(userId)) ?? [];
+
+    if (invalidUserIds.length > 0) {
+      return NextResponse.json(
+        { error: `Invalid userIds: ${invalidUserIds.join(", ")}` },
+        { status: 400 },
+      );
+    }
+
+    const paymentListToCreate = paymentToCreate?.map(({ amount, userId }) => ({
+      amount: amount,
+      userId: userId,
     }));
 
+    if (!paymentListToCreate || paymentListToCreate.length === 0) {
+      return NextResponse.json(
+        { error: "No valid payments to create" },
+        { status: 400 },
+      );
+    }
+
     const result = await prisma.payment.createMany({
-      data: paymentListToCreate!,
+      data: paymentListToCreate,
     });
 
     return NextResponse.json(result);
