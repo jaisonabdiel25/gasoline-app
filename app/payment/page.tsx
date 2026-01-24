@@ -12,10 +12,8 @@ const GasolinePage = async () => {
   });
 
   return (
-    <div className="flex flex-col items-center mt-10">
-      <span className="text-3xl">Lista de pagos de gasolina</span>
-
-      <div className="mt-8">
+    <div className=" w-full flex flex-col items-center">
+      <div className="flex justify-center p-6">
         <TablePayment payments={payents} />
       </div>
     </div>

@@ -13,6 +13,8 @@ model Payment {
   updatedAt DateTime? @db.Timestamptz
   user      User      @relation(fields: [userId], references: [id])
   userId    String
+  vehicle   Vehicle   @relation(fields: [vehicleId], references: [id])
+  vehicleId String
 }
 
 model User {
@@ -24,4 +26,17 @@ model User {
   updatedAt DateTime? @db.Timestamptz
   password  String
   payments  Payment[]
+  vehicles  Vehicle[]
+}
+
+model Vehicle {
+  id        String    @id @default(uuid())
+  name      String
+  model     String?
+  year      Int?
+  createdAt DateTime  @default(now()) @db.Timestamptz
+  updatedAt DateTime? @db.Timestamptz
+  payments  Payment[]
+  user      User      @relation(fields: [userId], references: [id])
+  userId    String
 }
