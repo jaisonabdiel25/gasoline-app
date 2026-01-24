@@ -1,3 +1,4 @@
+import { TablePayment } from "@/modules";
 import { prisma } from "../lib/prisma";
 
 export const metadata = {
@@ -11,9 +12,12 @@ const GasolinePage = async () => {
   });
 
   return (
-    <div>
+    <div className="flex flex-col items-center mt-10">
       <span className="text-3xl">Lista de pagos de gasolina</span>
-      {JSON.stringify(payents)}
+
+      <div className="mt-8">
+        <TablePayment payments={payents} />
+      </div>
     </div>
   );
 };
