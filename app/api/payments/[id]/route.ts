@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import { updatePaymentValidator } from "@/app/validator/payments";
+import { updatePaymentValidator } from "@/validator/payments";
 import { NextRequest, NextResponse } from "next/server";
 
 interface Params {
@@ -35,13 +35,13 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
     const body = await request.json();
 
-    const { amount, userId } = await updatePaymentValidator.validate(body);
+    const { amount, userId, vehicleId } = await updatePaymentValidator.validate(body);
 
     const updatedPayment = await prisma.payment.update({
       where: {
         id: id,
       },
-      data: { amount, userId },
+      data: { amount, userId, vehicleId },
     });
 
     return NextResponse.json(updatedPayment);

@@ -1,8 +1,6 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-
-
 
 const CreatePage = () => {
   return (
@@ -17,9 +15,9 @@ const CreatePage = () => {
         type="text"
         className="mb-4 w-full max-w-sm"
       />
-      <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
+      <Button className="px-4 py-2 bg-blue-500 text-white rounded-md">
         Create Payment
-      </button>
+      </Button>
     </div>
   );
 };

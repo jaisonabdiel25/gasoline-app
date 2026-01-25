@@ -183,6 +183,13 @@
       #000000 20%,
       #0d1a36 100%
     );
+
+    --card-background: radial-gradient(
+        ellipse 80% 60% at 50% 0%,
+        rgba(226, 232, 240, 0.15),
+        transparent 70%
+      ),
+      #0d0f1a;
   }
 }
 

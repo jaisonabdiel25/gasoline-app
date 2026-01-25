@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import { createValidator } from "@/app/validator/payments";
+import { createValidator } from "@/validator/payments";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -53,9 +53,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const paymentListToCreate = paymentToCreate?.map(({ amount, userId }) => ({
+    const paymentListToCreate = paymentToCreate?.map(({ amount, userId, vehicleId }) => ({
       amount: amount,
       userId: userId,
+      vehicleId: vehicleId,
     }));
 
     if (!paymentListToCreate || paymentListToCreate.length === 0) {
