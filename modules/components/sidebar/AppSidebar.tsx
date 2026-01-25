@@ -3,7 +3,6 @@ import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
-  SidebarGroupAction,
   SidebarGroupContent,
   SidebarGroupLabel,
   SidebarMenu,
@@ -28,9 +27,6 @@ export function AppSidebar() {
              <ThemeToggle />
 
             </div>
-            <SidebarGroupAction title="Add Project">
-             
-            </SidebarGroupAction>
             <SidebarGroupContent className="mt-4">
               <SidebarMenu>
                 {SIDEBAR_OPTIONS.map((item) => (

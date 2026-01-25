@@ -1,5 +1,5 @@
 import { prisma } from "@/app/lib/prisma";
-import { createValidator } from "@/app/validator/users";
+import { createValidator } from "@/validator/users";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (request: NextRequest) => {

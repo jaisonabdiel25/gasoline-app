@@ -12,7 +12,7 @@ export const SIDEBAR_OPTIONS: SidebarItemsProps[] = [
     id: '2',
     label: "Vehicles",
     icon: <Car />,
-    path: "/payment",
+    path: "/vehicle",
   },
   {
     id: '3',
