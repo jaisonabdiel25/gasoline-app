@@ -1,5 +1,6 @@
 import { CusomEmpty } from "@/components/CusomEmpty";
 import { prisma } from "../lib/prisma";
+import { TableVehicle } from "@/modules/components/vehicle/TableVehicle";
 
 const VehiclePage = async () => {
   const vehicles = await prisma.vehicle.findMany({
@@ -20,7 +21,12 @@ const VehiclePage = async () => {
       </div>
     );
   }
-  return <div>VehiclePage</div>;
+
+  return (
+    <div className="w-full flex items-center justify-center px-10">
+      <TableVehicle vehicle={vehicles} />
+    </div>
+  );
 };
 
 export default VehiclePage;
