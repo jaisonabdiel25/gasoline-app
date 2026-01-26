@@ -19,8 +19,11 @@ import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
 import { VehicleValues } from "@/interface/vehicle";
 import { createVehicle } from "@/services";
+import { useRouter } from "next/navigation";
 
 const CreateVehiclePage = () => {
+  const router = useRouter();
+
   const { form } = useCreateVehicle();
 
   const onSubmit = async (values: VehicleValues) => {
@@ -30,11 +33,16 @@ const CreateVehiclePage = () => {
       userId: "b2f1409d-6103-4a39-973f-3acb034ce06f",
     };
     await createVehicle([request]);
+
+    router.push("/vehicle");
   };
 
   return (
-    <div className=" w-full flex justify-center items-center" >
-      <Card className="w-full sm:max-w-md" style={{background: "var(--card-background)",}}>
+    <div className=" w-full flex justify-center items-center">
+      <Card
+        className="w-full sm:max-w-md"
+        style={{ background: "var(--card-background)" }}
+      >
         <CardHeader>
           <CardTitle>Agrega un vehiculo a tu usuario</CardTitle>
           <CardDescription>
@@ -101,10 +109,13 @@ const CreateVehiclePage = () => {
                       autoComplete="off"
                       name="year"
                       type="number"
-                      onChange={(e) =>
-                        !isNaN(field.value) &&
-                        field.onChange(Number(e.target.value))
-                      }
+                      onChange={(e) => {
+                        console.log(isNaN(Number(e.target.value)))
+                        console.log(Number(e.target.value))
+                        if (isNaN(Number(e.target.value))) {
+                          field.onChange(Number(e.target.value));
+                        }
+                      }}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

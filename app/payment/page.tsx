@@ -1,5 +1,6 @@
 import { TablePayment } from "@/modules";
 import { prisma } from "../lib/prisma";
+import { CusomEmpty } from "@/components/CusomEmpty";
 
 export const metadata = {
   title: "Lista de pagos de gasolina",
@@ -7,15 +8,26 @@ export const metadata = {
 };
 
 const GasolinePage = async () => {
-  const payents = await prisma.payment.findMany({
+  const payments = await prisma.payment.findMany({
     orderBy: { createdAt: "desc" },
   });
 
-  return (
-    <div className=" w-full flex flex-col items-center">
-      <div className="flex justify-center p-6">
-        <TablePayment payments={payents} />
+  if (!payments || payments.length === 0) {
+    return (
+      <div className="w-full flex items-center justify-center px-10">
+        <CusomEmpty
+          title="No hay pagos registrados"
+          description="Registra un pago para comenzar."
+          labelButton="Registrar Pago"
+          route="/payment/new"
+        />
       </div>
+    );
+  }
+
+  return (
+    <div className=" w-full flex justify-center items-center p-6">
+      <TablePayment payments={payments} />
     </div>
   );
 };

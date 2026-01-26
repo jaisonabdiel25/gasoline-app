@@ -1,9 +1,8 @@
-import { Payment } from "@prisma/client";
+import { Vehicle } from "@prisma/client";
 import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -18,27 +17,31 @@ import {
 import { EllipsisVertical } from "lucide-react";
 
 interface Props {
-  payments?: Payment[];
+  vehicle?: Vehicle[];
 }
 
-export const TablePayment = (props: Props) => {
-  const { payments = [] } = props;
+export const TableVehicle = (props: Props) => {
+  const { vehicle = [] } = props;
   return (
     <Table className="border-2 shadow-card rounded-lg w-full">
       <TableHeader>
         <TableRow className="gap-8">
-          <TableHead className="text-center">Fecha</TableHead>
-          <TableHead className="text-center">Monto</TableHead>
-          <TableHead className="text-right"></TableHead>
+          <TableHead className="text-center">Name</TableHead>
+          <TableHead className="text-center">Model</TableHead>
+          <TableHead className="text-center">Year</TableHead>
+          <TableHead className="text-center">Fecha de creación</TableHead>
+          <TableHead className="text-center"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {payments.map(({ id, amount, createdAt }) => (
+        {vehicle.map(({ id, name, year, model, createdAt }) => (
           <TableRow key={id}>
+            <TableCell className="w-3xl text-center">{name}</TableCell>
+            <TableCell className="w-3xl text-center">{model}</TableCell>
+            <TableCell className="w-3xl text-center">{year}</TableCell>
             <TableCell className="w-3xl text-center">
               {createdAt.toLocaleDateString()}
             </TableCell>
-            <TableCell className="w-3xl text-center">{amount}</TableCell>
             <TableCell className="text-right">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -57,16 +60,6 @@ export const TablePayment = (props: Props) => {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell className="text-center" colSpan={2}>
-            Total
-          </TableCell>
-          <TableCell colSpan={0} className="text-left">
-            $2,500.00
-          </TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 };
