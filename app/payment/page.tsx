@@ -1,5 +1,5 @@
 import { TablePayment } from "@/modules";
-import { prisma } from "../lib/prisma";
+import { prisma } from "../../lib/prisma";
 import { CusomEmpty } from "@/components/CusomEmpty";
 
 export const metadata = {

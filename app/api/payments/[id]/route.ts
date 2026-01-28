@@ -1,4 +1,4 @@
-import { prisma } from "@/app/lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { updatePaymentValidator } from "@/validator/payments";
 import { NextRequest, NextResponse } from "next/server";
 
