@@ -7,7 +7,7 @@ export const metadata = {
   description: "Página para ver los pagos de gasolina",
 };
 
-const GasolinePage = async () => {
+const PaymentPage = async () => {
   const payments = await prisma.payment.findMany({
     orderBy: { createdAt: "desc" },
   });
@@ -26,10 +26,12 @@ const GasolinePage = async () => {
   }
 
   return (
-    <div className=" w-full flex justify-center items-center p-6">
-      <TablePayment payments={payments} />
+    <div className=" w-full flex justify-center items-center p-6 px-4">
+      <div className="rounded-2xl border px-4 py-8 border-gray-400 dark:border-neutral-600">
+        <TablePayment payments={payments} />
+      </div>
     </div>
   );
 };
 
-export default GasolinePage;
+export default PaymentPage;

@@ -3,7 +3,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -24,9 +23,9 @@ interface Props {
 export const TablePayment = (props: Props) => {
   const { payments = [] } = props;
   return (
-    <Table className="border-2 shadow-card rounded-lg w-full">
+    <Table className="shadow-card rounded-lg w-full border-gray-600 dark:border-neutral-500">
       <TableHeader>
-        <TableRow className="gap-8">
+        <TableRow className="gap-8 border-gray-400 dark:border-neutral-600">
           <TableHead className="text-center">Fecha</TableHead>
           <TableHead className="text-center">Monto</TableHead>
           <TableHead className="text-right"></TableHead>
@@ -34,17 +33,17 @@ export const TablePayment = (props: Props) => {
       </TableHeader>
       <TableBody>
         {payments.map(({ id, amount, createdAt }) => (
-          <TableRow key={id}>
+          <TableRow key={id} className="border-b border-gray-400 dark:border-neutral-600" >
             <TableCell className="w-3xl text-center">
               {createdAt.toLocaleDateString()}
             </TableCell>
             <TableCell className="w-3xl text-center">{amount}</TableCell>
-            <TableCell className="text-right">
-              <DropdownMenu>
+            <TableCell className="text-center px-4" >
+              <DropdownMenu >
                 <DropdownMenuTrigger asChild>
                   <EllipsisVertical />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
+                <DropdownMenuContent align="center">
                   <DropdownMenuItem>Edit</DropdownMenuItem>
                   <DropdownMenuItem>Duplicate</DropdownMenuItem>
                   <DropdownMenuSeparator />
@@ -57,16 +56,6 @@ export const TablePayment = (props: Props) => {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell className="text-center" colSpan={2}>
-            Total
-          </TableCell>
-          <TableCell colSpan={0} className="text-left">
-            $2,500.00
-          </TableCell>
-        </TableRow>
-      </TableFooter>
     </Table>
   );
 };

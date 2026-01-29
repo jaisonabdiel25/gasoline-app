@@ -13,10 +13,10 @@ export const createVehicle = async (
     body: JSON.stringify(values),
   })
     .then((res) => res.json())
-    .catch((erros) => {
+    .catch((errors) => {
       return {
-        isSuccess: true,
-        data: erros,
+        isSuccess: false,
+        errors 
       };
     });
 
