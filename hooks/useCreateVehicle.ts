@@ -12,7 +12,6 @@ export const useCreateVehicle = () => {
       year: undefined,
     },
   });
-  
 
   return {
     form,

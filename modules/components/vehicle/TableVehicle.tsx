@@ -23,9 +23,9 @@ interface Props {
 export const TableVehicle = (props: Props) => {
   const { vehicle = [] } = props;
   return (
-    <Table className="border-2 shadow-card rounded-lg w-full">
+    <Table className="w-full border-gray-600 dark:border-neutral-500">
       <TableHeader>
-        <TableRow className="gap-8">
+        <TableRow className="gap-8 border-gray-400 dark:border-neutral-600">
           <TableHead className="text-center">Name</TableHead>
           <TableHead className="text-center">Model</TableHead>
           <TableHead className="text-center">Year</TableHead>
@@ -35,7 +35,7 @@ export const TableVehicle = (props: Props) => {
       </TableHeader>
       <TableBody>
         {vehicle.map(({ id, name, year, model, createdAt }) => (
-          <TableRow key={id}>
+          <TableRow key={id} className="border-gray-400 dark:border-neutral-600" >
             <TableCell className="w-3xl text-center">{name}</TableCell>
             <TableCell className="w-3xl text-center">{model}</TableCell>
             <TableCell className="w-3xl text-center">{year}</TableCell>

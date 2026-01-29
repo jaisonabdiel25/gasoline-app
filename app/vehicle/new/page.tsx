@@ -65,7 +65,7 @@ const CreateVehiclePage = () => {
                       {...field}
                       id="form-rhf-demo-title"
                       aria-invalid={fieldState.invalid}
-                      placeholder="Login button not working on mobile"
+                      placeholder="Ingrese el nombre del vehículo"
                       autoComplete="off"
                     />
                     {fieldState.invalid && (
@@ -86,7 +86,7 @@ const CreateVehiclePage = () => {
                       {...field}
                       id="form-rhf-demo-title"
                       aria-invalid={fieldState.invalid}
-                      placeholder="Login button not working on mobile"
+                      placeholder="Ingrese el modelo del vehículo"
                       autoComplete="off"
                     />
                     {fieldState.invalid && (
@@ -105,13 +105,11 @@ const CreateVehiclePage = () => {
                       {...field}
                       id="form-rhf-demo-title"
                       aria-invalid={fieldState.invalid}
-                      placeholder="Login button not working on mobile"
+                      placeholder="Ingrese el año del vehículo"
                       autoComplete="off"
                       name="year"
                       type="number"
                       onChange={(e) => {
-                        console.log(isNaN(Number(e.target.value)))
-                        console.log(Number(e.target.value))
                         if (isNaN(Number(e.target.value))) {
                           field.onChange(Number(e.target.value));
                         }
