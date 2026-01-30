@@ -13,3 +13,4 @@ export const updatePaymentValidator = yup.object({
   userId: yup.string().uuid().optional(),
   vehicleId: yup.string().uuid().optional(),
 });
+
