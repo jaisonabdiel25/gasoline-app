@@ -1,20 +1,13 @@
 import {
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { EllipsisVertical } from "lucide-react";
+
 import { PaymentWithRelations } from "@/interface/payment";
+import { TablePaymentRow } from "./TablePaymentRow";
 
 interface Props {
   payments?: PaymentWithRelations[];
@@ -33,33 +26,7 @@ export const TablePayment = (props: Props) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {payments.map(({ id, amount, createdAt, vehicle }) => (
-          <TableRow
-            key={id}
-            className="border-b border-gray-400 dark:border-neutral-600"
-          >
-            <TableCell className="w-3xl text-center">
-              {createdAt.toLocaleDateString()}
-            </TableCell>
-            <TableCell className="w-3xl text-center">{amount}</TableCell>
-            <TableCell className="w-3xl text-center">{`${vehicle?.name} (${vehicle?.model})`}</TableCell>
-            <TableCell className="text-center px-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <EllipsisVertical />
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="center">
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem variant="destructive">
-                    Delete
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            </TableCell>
-          </TableRow>
-        ))}
+        <TablePaymentRow payments={payments} />
       </TableBody>
     </Table>
   );

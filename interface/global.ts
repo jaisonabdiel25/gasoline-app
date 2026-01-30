@@ -3,3 +3,7 @@ export interface CustomResponse<T> {
   data: T;
   errors?: object
 }
+
+export interface Ids {
+  id: string
+}

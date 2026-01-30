@@ -48,11 +48,10 @@ export const TableVehicle = (props: Props) => {
                   <EllipsisVertical />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                  <DropdownMenuItem>Editar</DropdownMenuItem>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem variant="destructive">
-                    Delete
+                    Eliminar
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
