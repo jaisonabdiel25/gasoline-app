@@ -24,7 +24,7 @@ const VehiclePage = async () => {
 
   return (
     <div className="w-full flex items-center justify-center px-10">
-      <div className="rounded-2xl border p-10 border-gray-400 dark:border-neutral-600">
+      <div className="p-10 border-gray-400 dark:border-neutral-600">
         <TableVehicle vehicle={vehicles} />
       </div>
     </div>

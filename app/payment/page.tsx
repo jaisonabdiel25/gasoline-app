@@ -1,6 +1,7 @@
 import { TablePayment } from "@/modules";
 import { prisma } from "../../lib/prisma";
 import { CusomEmpty } from "@/components/CusomEmpty";
+import { PaymentWithRelations } from "@/interface/payment";
 
 export const metadata = {
   title: "Lista de pagos de gasolina",
@@ -8,8 +9,11 @@ export const metadata = {
 };
 
 const PaymentPage = async () => {
-  const payments = await prisma.payment.findMany({
+  const payments: PaymentWithRelations[] = await prisma.payment.findMany({
     orderBy: { createdAt: "desc" },
+    include: {
+      vehicle: true,
+    },
   });
 
   if (!payments || payments.length === 0) {
@@ -27,7 +31,7 @@ const PaymentPage = async () => {
 
   return (
     <div className=" w-full flex justify-center items-center p-6 px-4">
-      <div className="rounded-2xl border px-4 py-8 border-gray-400 dark:border-neutral-600">
+      <div className="p-20 border-gray-400 dark:border-neutral-600">
         <TablePayment payments={payments} />
       </div>
     </div>

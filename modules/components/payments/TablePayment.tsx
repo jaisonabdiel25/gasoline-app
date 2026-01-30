@@ -1,4 +1,3 @@
-import { Payment } from "@prisma/client";
 import {
   Table,
   TableBody,
@@ -15,9 +14,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { EllipsisVertical } from "lucide-react";
+import { PaymentWithRelations } from "@/interface/payment";
 
 interface Props {
-  payments?: Payment[];
+  payments?: PaymentWithRelations[];
 }
 
 export const TablePayment = (props: Props) => {
@@ -28,18 +28,23 @@ export const TablePayment = (props: Props) => {
         <TableRow className="gap-8 border-gray-400 dark:border-neutral-600">
           <TableHead className="text-center">Fecha</TableHead>
           <TableHead className="text-center">Monto</TableHead>
+          <TableHead className="text-center">Vehiculo</TableHead>
           <TableHead className="text-right"></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {payments.map(({ id, amount, createdAt }) => (
-          <TableRow key={id} className="border-b border-gray-400 dark:border-neutral-600" >
+        {payments.map(({ id, amount, createdAt, vehicle }) => (
+          <TableRow
+            key={id}
+            className="border-b border-gray-400 dark:border-neutral-600"
+          >
             <TableCell className="w-3xl text-center">
               {createdAt.toLocaleDateString()}
             </TableCell>
             <TableCell className="w-3xl text-center">{amount}</TableCell>
-            <TableCell className="text-center px-4" >
-              <DropdownMenu >
+            <TableCell className="w-3xl text-center">{`${vehicle?.name} (${vehicle?.model})`}</TableCell>
+            <TableCell className="text-center px-4">
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <EllipsisVertical />
                 </DropdownMenuTrigger>
