@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { deleteValidator } from "@/validator/commonValidator";
 import { createValidator } from "@/validator/vehicles";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -45,6 +46,40 @@ export async function POST(request: NextRequest) {
 
     const result = await prisma.vehicle.createMany({
       data: vehicleListToCreate,
+    });
+
+    return NextResponse.json(result);
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    const listId = await deleteValidator.validate(body);
+
+    const ids = listId?.map(({ id }) => id);
+
+    const existingVehicle = await prisma.vehicle.findMany({
+      where: { id: { in: ids } },
+      select: { id: true },
+    });
+    const existingVehicleIds = new Set(existingVehicle.map(({ id }) => id));
+
+    const invalidvehiclesIds =
+      ids?.filter((userId) => !existingVehicleIds.has(userId)) ?? [];
+
+    if (invalidvehiclesIds.length > 0) {
+      return NextResponse.json(
+        { error: `Invalid vehicle: ${invalidvehiclesIds.join(", ")}` },
+        { status: 400 },
+      );
+    }
+
+    const result = await prisma.vehicle.deleteMany({
+      where: { id: { in: ids } },
     });
 
     return NextResponse.json(result);

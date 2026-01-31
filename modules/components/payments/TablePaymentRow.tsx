@@ -24,7 +24,7 @@ export const TablePaymentRow = (props: Props) => {
     const response = await deletePayments([{ id }]);
 
     if (response.isSuccess) {
-      router.push("/payment");
+      router.refresh();
     }
   };
 
