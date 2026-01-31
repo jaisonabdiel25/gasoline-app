@@ -2,6 +2,7 @@ import { TablePayment } from "@/modules";
 import { prisma } from "../../lib/prisma";
 import { CusomEmpty } from "@/components/CusomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
+import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
 
 export const metadata = {
   title: "Lista de pagos de gasolina",
@@ -30,10 +31,9 @@ const PaymentPage = async () => {
   }
 
   return (
-    <div className=" w-full flex justify-center items-center p-6 px-4">
-      <div className="p-20 border-gray-400 dark:border-neutral-600">
-        <TablePayment payments={payments} />
-      </div>
+    <div className="w-full flex flex-col  items-center p-8 gap-8 mt-20">
+      <PaymentHeader />
+      <TablePayment payments={payments} />
     </div>
   );
 };
