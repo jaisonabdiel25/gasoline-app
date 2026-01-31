@@ -1,3 +1,5 @@
+"use client";
+
 import { Vehicle } from "@prisma/client";
 import {
   Item,
@@ -7,12 +9,23 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { PencilIcon, Trash2 } from "lucide-react";
+import { deleteVehicles } from "@/services";
+import { useRouter } from "next/navigation";
 
 interface Props {
   vehicle?: Vehicle[];
 }
 
 export const ListVehicle = (props: Props) => {
+  const router = useRouter();
+
+  const handleDelete = async (id: string) => {
+    const response = await deleteVehicles([{ id }]);
+
+    if (response.isSuccess) {
+      router.refresh();
+    }
+  };
   const { vehicle = [] } = props;
   return (
     <div className="w-full flex justify-center flex-wrap gap-4 ">
@@ -25,7 +38,7 @@ export const ListVehicle = (props: Props) => {
             </ItemContent>
             <ItemActions className="flex gap-3">
               <PencilIcon />
-              <Trash2 className="" color="#b22a2a" />
+              <Trash2 onClick={() => handleDelete(id)} color="#b22a2a" />
             </ItemActions>
           </Item>
         </div>
