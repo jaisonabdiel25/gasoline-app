@@ -4,7 +4,6 @@ import {
   Item,
   ItemActions,
   ItemContent,
-  ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
 import { Plus } from "lucide-react";
@@ -14,10 +13,9 @@ export const PaymentHeader = () => {
   const router = useRouter();
   return (
     <div className="w-full flex justify-around flex-wrap gap-2">
-      <Item variant="outline" className="w-96">
+      <Item variant="outline" className="w-96 border-neutral-500">
         <ItemContent>
           <ItemTitle>Registrar pago</ItemTitle>
-          <ItemDescription>Last seen 5 months ago</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button
@@ -31,10 +29,9 @@ export const PaymentHeader = () => {
           </Button>
         </ItemActions>
       </Item>
-      <Item variant="outline" className="w-96">
+      <Item variant="outline" className="w-96 border-neutral-400">
         <ItemContent>
           <ItemTitle>Registrar nuevo Vehículo</ItemTitle>
-          <ItemDescription>Last seen 5 months ago</ItemDescription>
         </ItemContent>
         <ItemActions>
           <Button

@@ -23,7 +23,7 @@ export const useCreatePayment = () => {
     };
     const response = await createPayment([request]);
     if (response.isSuccess) {
-      router.push("/payment");
+      router.refresh();
     }
   };
 
