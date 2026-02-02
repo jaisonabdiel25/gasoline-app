@@ -9,8 +9,19 @@ import {
 } from "@/components/ui/sidebar";
 import { SIDEBAR_OPTIONS } from "@/constant";
 import { SidebarItems } from "./SidebarItems";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { CustomAvatar } from "../avatar/CustomAvatar";
 
-export function AppSidebar() {
+export async function AppSidebar() {
+  const session = await getServerSession(authOptions);
+
+  const userName = session?.user?.name ?? "";
+
+  const avatarUrl = session?.user?.image
+    ? session?.user?.image
+    : "https://www.gravatar.com/avatar/?d=mp&s=200";
+
   return (
     <Sidebar collapsible="icon">
       <div
@@ -23,9 +34,12 @@ export function AppSidebar() {
         <SidebarContent>
           <SidebarGroup>
             <div className="flex items-center justify-between px-3">
-            <SidebarGroupLabel>Application</SidebarGroupLabel>
-             <ThemeToggle />
+              <div className="flex flex-col w-full justify-start gap-4">
+              <CustomAvatar avatarUrl={avatarUrl} />
+              <SidebarGroupLabel>{userName}</SidebarGroupLabel>
 
+              </div>
+              <ThemeToggle />
             </div>
             <SidebarGroupContent className="mt-4">
               <SidebarMenu>
