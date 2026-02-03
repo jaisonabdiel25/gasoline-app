@@ -4,6 +4,7 @@ import "./globals.css";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/modules";
 import { ThemeProvider } from "next-themes";
+import AuthProvider from "@/modules/components/auth/AuthProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,24 +27,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        style={{ background: "var(--app-background)" }}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <AuthProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          style={{ background: "var(--app-background)" }}
         >
-          <SidebarProvider>
-            <AppSidebar />
-            <SidebarTrigger />
-            {children}
-          </SidebarProvider>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarTrigger />
+              {children}
+            </SidebarProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

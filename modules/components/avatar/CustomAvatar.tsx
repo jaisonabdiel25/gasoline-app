@@ -1,18 +1,18 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 
 interface Props {
     avatarUrl: string
+    className?: string;
 }
 
 export const  CustomAvatar = (props: Props) =>  {
 
-    const {avatarUrl} = props;
+    const {avatarUrl, className} = props;
   return (
-    <Avatar>
+    <Avatar className={className}>
       <AvatarImage
         src={avatarUrl}
         alt="@shadcn"
-        className="grayscale"
       />
       {/* <AvatarFallback>CN</AvatarFallback> */}
     </Avatar>
