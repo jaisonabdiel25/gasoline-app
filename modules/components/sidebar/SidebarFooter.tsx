@@ -8,7 +8,7 @@ import { Balloon, LogInIcon, LogOut } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 export const SidebarFooter = () => {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
 
   if (status === "loading") {
     return (

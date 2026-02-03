@@ -14,6 +14,7 @@ const ProfilePage = () => {
         className="w-40 h-40"
       />
       <h1 className="text-3xl font-light">{user?.user?.name}</h1>
+      {JSON.stringify(user)}
     </div>
   );
 };
