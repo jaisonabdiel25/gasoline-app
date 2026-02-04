@@ -1,3 +1,4 @@
+import { ThemeToggle } from "@/components/ThemeToogle";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -19,34 +20,34 @@ export default async function SignInPage() {
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
+        <CardTitle>Ingresa a tu cuenta</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Ingresa tu correo y contraseña para ingresar a tu cuenta
         </CardDescription>
         <CardAction>
-          <Button variant="link">Sign Up</Button>
+          <ThemeToggle />
         </CardAction>
       </CardHeader>
       <CardContent>
         <form>
           <div className="flex flex-col gap-6">
             <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Correo</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="ejemplo@ejemplo.com"
                 required
               />
             </div>
             <div className="grid gap-2">
               <div className="flex items-center">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">Contraseña</Label>
                 <a
                   href="#"
                   className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                 >
-                  Forgot your password?
+                  ¿Olvido la contraseña?
                 </a>
               </div>
               <Input id="password" type="password" required />
@@ -56,7 +57,7 @@ export default async function SignInPage() {
       </CardContent>
       <CardFooter className="flex-col gap-2">
         <Button type="submit" className="w-full">
-          Login
+          Iniciar Sessión
         </Button>
         <SignInButtons providers={providers} />
       </CardFooter>
