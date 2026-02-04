@@ -22,7 +22,7 @@ export default function SignInButtons({ providers }: Props) {
             key={provider.id}
             onClick={() => signIn(provider.id, { callbackUrl: "/" })}
           >
-            Continuar con {provider.name}
+            Ingresar con {provider.name}
           </Button>
         )
       })}
