@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/modules";
 import { ThemeProvider } from "next-themes";
 import AuthProvider from "@/modules/components/auth/AuthProvider";
 
@@ -39,11 +37,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <SidebarProvider>
-              <AppSidebar />
-              <SidebarTrigger />
-              {children}
-            </SidebarProvider>
+            {children}
           </ThemeProvider>
         </body>
       </html>

@@ -1,5 +1,6 @@
 import { CusomEmpty } from "@/components/CusomEmpty";
-import { prisma } from "../../lib/prisma";
+import { prisma } from "@/lib/prisma";
+
 import { ListVehicle } from "@/modules/components/vehicle/ListVehicle";
 
 const VehiclePage = async () => {

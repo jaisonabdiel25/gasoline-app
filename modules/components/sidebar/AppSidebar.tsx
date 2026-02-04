@@ -11,11 +11,12 @@ import {
 import { SIDEBAR_OPTIONS } from "@/constant";
 import { SidebarItems } from "./SidebarItems";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 import { CustomAvatar } from "../avatar/CustomAvatar";
 
 import Link from "next/link";
 import { SidebarFooter as CustomSidebarFooter } from "./SidebarFooter";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export async function AppSidebar() {
   const session = await getServerSession(authOptions);

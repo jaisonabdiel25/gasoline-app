@@ -1,8 +1,8 @@
 import { TablePayment } from "@/modules";
-import { prisma } from "../../lib/prisma";
 import { CusomEmpty } from "@/components/CusomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
 import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
+import { prisma } from "@/lib/prisma";
 
 export const metadata = {
   title: "Lista de pagos de gasolina",
