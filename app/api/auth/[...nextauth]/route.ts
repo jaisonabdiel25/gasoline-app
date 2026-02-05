@@ -59,9 +59,15 @@ export const authOptions: NextAuthOptions = {
     signIn: "/signin",
   },
   callbacks: {
-    async session({ session, user }) {
-      if (session.user && user) {
-        session.user.id = user.id;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user && token) {
+        session.user.id = token.id as string;
       }
       return session;
     },
@@ -71,6 +77,9 @@ export const authOptions: NextAuthOptions = {
       if (new URL(url).origin === baseUrl) return url;
       return `${baseUrl}/`;
     },
+  },
+  session: {
+    strategy: "jwt",
   },
 };
 

@@ -1,5 +1,6 @@
 "use client";
 import { ThemeToggle } from "@/components/ThemeToogle";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardAction,
@@ -12,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { useLoginUser } from "@/hooks/useLoginUser";
 import SignInButtons from "../signInButtons/SignInButtons";
-import { Button } from "@/components/ui/button";
 
 import {
   Field,
@@ -23,28 +23,23 @@ import {
 import { LoginUser as LoginUserType } from "@/interface/user";
 import { signIn } from "next-auth/react";
 import { Controller } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Props = {
   providers: Awaited<ReturnType<typeof import("next-auth/react").getProviders>>;
 };
 export const LoginUser = (props: Props) => {
   const { providers } = props;
-  const router = useRouter();
   const { form } = useLoginUser();
 
   const onSubmit = async (values: LoginUserType) => {
     const { email, password } = values;
-    const res = await signIn("credentials", {
+    await signIn("credentials", {
       email,
       password,
-      redirect: false, // 👈 CLAVE
+      redirect: true,
+      callbackUrl: "/",
     });
-
-    if (res?.ok) {
-      router.push("/");
-      router.refresh(); // 🔥 ESTO HACE QUE useSession CAMBIE
-    }
   };
   return (
     <Card className="w-full max-w-sm">
@@ -109,7 +104,14 @@ export const LoginUser = (props: Props) => {
           </div>
         </form>
       </CardContent>
+
       <CardFooter className="flex-col gap-2 w-full">
+        <CardDescription >
+          Puedes crear una nueva cuenta haciendo click{" "}
+          <Link href={`/register`} className="underline italic">
+            aqui
+          </Link>
+        </CardDescription>
         <Button type="submit" form="form-login-user" className="w-full">
           Iniciar Sessión
         </Button>
