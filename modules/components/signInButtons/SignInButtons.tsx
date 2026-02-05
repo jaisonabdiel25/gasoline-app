@@ -11,8 +11,7 @@ export default function SignInButtons({ providers }: Props) {
   if (!providers) return null
 
   return (
-    <div className="space-y-2">
-
+    <>
         
       {Object.values(providers).map((provider) => {
         if (provider.id === "credentials") return null
@@ -26,6 +25,6 @@ export default function SignInButtons({ providers }: Props) {
           </Button>
         )
       })}
-    </div>
+    </>
   )
 }

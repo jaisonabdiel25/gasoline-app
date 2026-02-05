@@ -50,12 +50,12 @@ export default async function SignInPage() {
                   ¿Olvido la contraseña?
                 </a>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required placeholder="ingrese su contraseña" />
             </div>
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
+      <CardFooter className="flex-col gap-2 w-full">
         <Button type="submit" className="w-full">
           Iniciar Sessión
         </Button>
