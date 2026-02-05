@@ -10,7 +10,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={` h-screen w-screen flex justify-center items-center`} suppressHydrationWarning>
+    <div
+      className={` h-screen w-screen flex justify-center items-center bg-ba`}
+      suppressHydrationWarning
+    >
       {children}
     </div>
   );

@@ -106,7 +106,7 @@ export const LoginUser = (props: Props) => {
       </CardContent>
 
       <CardFooter className="flex-col gap-2 w-full">
-        <CardDescription >
+        <CardDescription>
           Puedes crear una nueva cuenta haciendo click{" "}
           <Link href={`/register`} className="underline italic">
             aqui
