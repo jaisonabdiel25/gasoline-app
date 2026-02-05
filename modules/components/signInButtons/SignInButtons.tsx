@@ -22,6 +22,7 @@ export default function SignInButtons({ providers }: Props) {
             className="w-full"
             onClick={() =>
               signIn(provider.id, {
+                redirect: true,
                 callbackUrl: "/",
               })
             }
