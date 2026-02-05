@@ -29,8 +29,6 @@ export const ResgisterUser = () => {
   const { form } = useRegisterUser();
 
   const onSubmit = async (values: UserRegisterValues) => {
-    console.log(values);
-
     const { isSuccess } = await resgisterUser(values);
 
     if (isSuccess) {
