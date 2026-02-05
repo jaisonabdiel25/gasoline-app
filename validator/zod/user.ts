@@ -2,13 +2,9 @@ import { z } from "zod";
 
 export const registerUserSchema = z
   .object({
-    name: z
-      .string()
-      .min(2, "El nombre debe tener al menos 3 caracteres"),
+    name: z.string().min(2, "El nombre debe tener al menos 3 caracteres"),
 
-    email: z
-      .string()
-      .email("Correo inválido"),
+    email: z.string().email("Correo inválido"),
 
     password: z
       .string()
@@ -28,3 +24,8 @@ export const registerUserSchema = z
     message: "Las contraseñas no coinciden",
     path: ["passwordConfirm"],
   });
+
+export const loginUserSchema = z.object({
+  email: z.string().email("Correo inválido"),
+  password: z.string(),
+});

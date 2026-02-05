@@ -12,14 +12,19 @@ export default function SignInButtons({ providers }: Props) {
 
   return (
     <>
-        
       {Object.values(providers).map((provider) => {
         if (provider.id === "credentials") return null
 
         return (
-          <Button variant="outline" className="w-full"
+          <Button
             key={provider.id}
-            onClick={() => signIn(provider.id, { callbackUrl: "/" })}
+            variant="outline"
+            className="w-full"
+            onClick={() =>
+              signIn(provider.id, {
+                callbackUrl: "/",
+              })
+            }
           >
             Ingresar con {provider.name}
           </Button>
