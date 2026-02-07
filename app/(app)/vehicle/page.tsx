@@ -1,13 +1,15 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { CusomEmpty } from "@/components/CusomEmpty";
 import { prisma } from "@/lib/prisma";
 
 import { ListVehicle } from "@/modules/components/vehicle/ListVehicle";
+import { getServerSession } from "next-auth";
 
 const VehiclePage = async () => {
+  const session = await getServerSession(authOptions);
   const vehicles = await prisma.vehicle.findMany({
     orderBy: { createdAt: "desc" },
-    //TODO: sustituir por usurio en curso
-    where: { userId: "b2f1409d-6103-4a39-973f-3acb034ce06f" },
+    where: { userId: session?.user?.id },
   });
 
   if (vehicles.length === 0) {
@@ -25,7 +27,7 @@ const VehiclePage = async () => {
 
   return (
     <div className="w-full flex  p-10">
-        <ListVehicle vehicle={vehicles} />
+      <ListVehicle vehicle={vehicles} />
     </div>
   );
 };

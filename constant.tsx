@@ -1,23 +1,30 @@
 import { SidebarItemsProps } from "@/interface/Sidebar";
-import { Car, ChartColumnIcon, LayoutDashboard } from "lucide-react";
+import { Car, HandCoins, House, User2 } from "lucide-react";
 
 export const SIDEBAR_OPTIONS: SidebarItemsProps[] = [
+    {
+    id: '0',
+    label: "Inicio",
+    icon: <House />,
+    path: "/",
+  },
   {
     id: '1',
-    label: "Dashboard",
-    icon: <LayoutDashboard />,
+    label: "Pagos",
+    icon: <HandCoins />,
     path: "/payment",
   },
   {
     id: '2',
-    label: "Vehicles",
+    label: "Vehiculos",
     icon: <Car />,
     path: "/vehicle",
   },
-  {
+    {
     id: '3',
-    label: "Fuel Records",
-    icon: <ChartColumnIcon />,
-    path: "/payment",
+    label: "Perfil",
+    icon: <User2 />,
+    path: "/profile",
   },
+
 ];
