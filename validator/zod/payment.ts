@@ -4,6 +4,7 @@ export const paymentSchema = z.object({
   amount: z
     .number()
     .gt(0, "El monto debe ser mayor a 0"),
+  vehicleId: z.string()
 });
 
 

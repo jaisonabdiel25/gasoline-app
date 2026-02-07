@@ -1,8 +1,10 @@
-import { TablePayment } from "@/modules";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { CusomEmpty } from "@/components/CusomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
-import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
 import { prisma } from "@/lib/prisma";
+import { TablePayment } from "@/modules";
+import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
+import { getServerSession } from "next-auth";
 
 export const metadata = {
   title: "Lista de pagos de gasolina",
@@ -10,7 +12,10 @@ export const metadata = {
 };
 
 const PaymentPage = async () => {
+  const session = await getServerSession(authOptions);
+
   const payments: PaymentWithRelations[] = await prisma.payment.findMany({
+    where: { userId: session?.user?.id },
     orderBy: { createdAt: "desc" },
     include: {
       vehicle: true,

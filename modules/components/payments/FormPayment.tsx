@@ -17,9 +17,26 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Controller } from "react-hook-form";
+import { Vehicle } from "@prisma/client";
+import { CustomSelect } from "@/components/CustomSelect";
+import { useMemo } from "react";
 
-export const FormPayment = () => {
+interface Props {
+  vehicles: Vehicle[];
+}
+
+export const FormPayment = (props: Props) => {
+  const { vehicles = [] } = props;
   const { form, onSubmit } = useCreatePayment();
+
+  const listVehicles = useMemo(() => {
+    return (
+      vehicles?.map((vehicle) => ({
+        id: vehicle.id,
+        label: `${vehicle.name} (${vehicle.model})`,
+      })) ?? []
+    );
+  }, [vehicles]);
 
   return (
     <div className=" w-full flex justify-center items-center">
@@ -36,7 +53,7 @@ export const FormPayment = () => {
         </CardHeader>
         <CardContent>
           <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
-            <FieldGroup>
+            <FieldGroup className="w-full">
               <Controller
                 name="amount"
                 control={form.control}
@@ -60,6 +77,26 @@ export const FormPayment = () => {
                       aria-invalid={fieldState.invalid}
                       placeholder="Ingrese el monto de pago"
                       autoComplete="off"
+                    />
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="vehicleId"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field className="w-full" data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="form-rhf-demo-title input-required">
+                      Vehiculo
+                    </FieldLabel>
+                    <CustomSelect
+                      onChange={(e: string) => {
+                        field.onChange(e);
+                      }}
+                      data={listVehicles}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
