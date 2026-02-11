@@ -3,7 +3,9 @@ import { CusomEmpty } from "@/components/CusomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
 import { prisma } from "@/lib/prisma";
 import { TablePayment } from "@/modules";
+import DateRangePicker from "@/modules/components/payments/DateRangePicker";
 import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
+import { addDays, startOfDay } from "date-fns";
 import { getServerSession } from "next-auth";
 
 export const metadata = {
@@ -11,15 +13,49 @@ export const metadata = {
   description: "Página para ver los pagos de gasolina",
 };
 
-const PaymentPage = async () => {
+type Props = {
+  searchParams: Promise<{
+    from?: string;
+    to?: string;
+  }>;
+};
+
+const PaymentPage = async ({ searchParams }: Props) => {
+  const { from, to } = await searchParams;
+
+  let dateFilter = {};
+
+  console.log("from", from);
+  console.log("to", to);
+
+  const parseLocalDate = (dateString: string) => {
+    const [year, month, day] = dateString.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  };
+
+  if (from && to) {
+    const start = startOfDay(parseLocalDate(from));
+    const end = addDays(startOfDay(parseLocalDate(to)), 1);
+
+    dateFilter = {
+      createdAt: {
+        gte: start,
+        lt: end,
+      },
+    };
+  }
+
+  console.log("dateFilter", dateFilter);
+
   const session = await getServerSession(authOptions);
 
   const payments: PaymentWithRelations[] = await prisma.payment.findMany({
-    where: { userId: session?.user?.id },
-    orderBy: { createdAt: "desc" },
-    include: {
-      vehicle: true,
+    where: {
+      userId: session?.user?.id,
+      ...dateFilter,
     },
+    orderBy: { createdAt: "desc" },
+    include: { vehicle: true },
   });
 
   if (!payments || payments.length === 0) {
@@ -38,6 +74,7 @@ const PaymentPage = async () => {
   return (
     <div className="w-full flex flex-col  items-center p-8 gap-8 mt-20">
       <PaymentHeader />
+      <DateRangePicker />
       <TablePayment payments={payments} />
     </div>
   );
