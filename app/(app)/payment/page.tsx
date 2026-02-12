@@ -3,8 +3,8 @@ import { CusomEmpty } from "@/components/CusomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
 import { prisma } from "@/lib/prisma";
 import { TablePayment } from "@/modules";
-import DateRangePicker from "@/modules/components/payments/DateRangePicker";
 import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
+import { parseLocalDate } from "@/utils/dateUtil";
 import { addDays, startOfDay } from "date-fns";
 import { getServerSession } from "next-auth";
 
@@ -25,14 +25,6 @@ const PaymentPage = async ({ searchParams }: Props) => {
 
   let dateFilter = {};
 
-  console.log("from", from);
-  console.log("to", to);
-
-  const parseLocalDate = (dateString: string) => {
-    const [year, month, day] = dateString.split("-").map(Number);
-    return new Date(year, month - 1, day);
-  };
-
   if (from && to) {
     const start = startOfDay(parseLocalDate(from));
     const end = addDays(startOfDay(parseLocalDate(to)), 1);
@@ -44,8 +36,6 @@ const PaymentPage = async ({ searchParams }: Props) => {
       },
     };
   }
-
-  console.log("dateFilter", dateFilter);
 
   const session = await getServerSession(authOptions);
 
@@ -74,7 +64,6 @@ const PaymentPage = async ({ searchParams }: Props) => {
   return (
     <div className="w-full flex flex-col  items-center p-8 gap-8 mt-20">
       <PaymentHeader />
-      <DateRangePicker />
       <TablePayment payments={payments} />
     </div>
   );
