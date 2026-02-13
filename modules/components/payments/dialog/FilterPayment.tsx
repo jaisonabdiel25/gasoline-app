@@ -74,7 +74,7 @@ export function FilterPayment() {
     <Dialog open={open} onOpenChange={setOpen}>
       <form id="FilterPayment" onSubmit={handleSubmit(handleFilter)}>
         <DialogTrigger asChild>
-          <FunnelIcon />
+          <FunnelIcon width={18} height={18} />
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>
