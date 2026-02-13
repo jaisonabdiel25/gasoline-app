@@ -35,7 +35,7 @@ export function FilterPayment() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const form = useForm<FilterPaymentProps>({
+  const { control, handleSubmit, resetField } = useForm<FilterPaymentProps>({
     defaultValues: {
       from: undefined,
       to: undefined,
@@ -64,9 +64,15 @@ export function FilterPayment() {
     setOpen(false);
   };
 
+  const handleDeleteFelters = () => {
+    resetField("from");
+    resetField("to");
+    router.replace(pathname);
+  };
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <form id="FilterPayment" onSubmit={form.handleSubmit(handleFilter)}>
+      <form id="FilterPayment" onSubmit={handleSubmit(handleFilter)}>
         <DialogTrigger asChild>
           <FunnelIcon />
         </DialogTrigger>
@@ -78,7 +84,7 @@ export function FilterPayment() {
           <FieldGroup>
             <Controller
               name="from"
-              control={form.control}
+              control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="form-rhf-demo-title input-required">
@@ -93,11 +99,11 @@ export function FilterPayment() {
             />
             <Controller
               name="to"
-              control={form.control}
+              control={control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="form-rhf-demo-title input-required">
-                    Fecha desde
+                    Fecha hasta
                   </FieldLabel>
                   <DateButton onChange={field.onChange} value={field.value} />
                   {fieldState.invalid && (
@@ -109,7 +115,9 @@ export function FilterPayment() {
           </FieldGroup>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancelar</Button>
+              <Button onClick={() => handleDeleteFelters()} variant="outline">
+                Cancelar
+              </Button>
             </DialogClose>
             <Button type="submit" form="FilterPayment">
               Filtrar
