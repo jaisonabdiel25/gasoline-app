@@ -24,9 +24,9 @@ export const TablePayment = (props: Props) => {
       <Table className="shadow-card rounded-lg w-full border-gray-600 dark:border-neutral-500">
         <TableHeader>
           <TableRow className="gap-8 border-gray-400 dark:border-neutral-600">
-            <TableHead className="text-center">Fecha</TableHead>
             <TableHead className="text-center">Monto</TableHead>
             <TableHead className="text-center">Vehiculo</TableHead>
+            <TableHead className="text-center">Fecha</TableHead>
             <TableHead className="text-right"></TableHead>
           </TableRow>
         </TableHeader>
