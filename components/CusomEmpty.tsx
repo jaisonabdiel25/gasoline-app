@@ -9,19 +9,32 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { Wind } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   title: string;
   description: string;
   labelButton: string;
   route?: string;
+  resetparams?: boolean;
 }
 
-export function CusomEmpty({ title, description, labelButton, route }: Props) {
+export function CusomEmpty({
+  title,
+  description,
+  labelButton,
+  route,
+  resetparams,
+}: Props) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleClick = () => {
+    if (resetparams) {
+      router.replace(pathname); // elimina todos los searchParams
+      router.refresh(); // recarga la página para reflejar los cambios
+      return;
+    }
     if (route) {
       router.push(route);
       return;

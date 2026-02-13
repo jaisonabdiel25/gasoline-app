@@ -20,20 +20,33 @@ type Props = {
   }>;
 };
 
+interface DateFilter {
+  createdAt?: {
+    gte?: Date;
+    lt?: Date;
+  };
+}
+
 const PaymentPage = async ({ searchParams }: Props) => {
   const { from, to } = await searchParams;
 
-  let dateFilter = {};
+  const dateFilter: DateFilter = {};
 
-  if (from && to) {
+  if (from) {
     const start = startOfDay(parseLocalDate(from));
+
+    dateFilter.createdAt = {
+      ...dateFilter.createdAt,
+      gte: start,
+    };
+  }
+
+  if (to) {
     const end = addDays(startOfDay(parseLocalDate(to)), 1);
 
-    dateFilter = {
-      createdAt: {
-        gte: start,
-        lt: end,
-      },
+    dateFilter.createdAt = {
+      ...dateFilter.createdAt,
+      lt: end,
     };
   }
 
@@ -47,6 +60,19 @@ const PaymentPage = async ({ searchParams }: Props) => {
     orderBy: { createdAt: "desc" },
     include: { vehicle: true },
   });
+
+  if ((from || to) && payments.length === 0) {
+    return (
+      <div className="w-full flex items-center justify-center px-10">
+        <CusomEmpty
+          title="No hay pagos registrados para los filtros aplicados"
+          description="Vuelve a aplicar los filtros o restablecelos para ver todos los pagos."
+          labelButton="Limpiar filtros"
+          resetparams={true}
+        />
+      </div>
+    );
+  }
 
   if (!payments || payments.length === 0) {
     return (
