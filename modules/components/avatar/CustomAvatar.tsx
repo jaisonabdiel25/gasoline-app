@@ -14,7 +14,6 @@ export const  CustomAvatar = (props: Props) =>  {
         src={avatarUrl}
         alt="@shadcn"
       />
-      {/* <AvatarFallback>CN</AvatarFallback> */}
     </Avatar>
   )
 }
