@@ -1,50 +1,54 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import {
-  Item,
-  ItemActions,
-  ItemContent,
-  ItemTitle,
-} from "@/components/ui/item";
-import { Plus } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { Item, ItemContent, ItemTitle } from "@/components/ui/item";
+import { useGeneralInformation } from "@/hooks/useGeneralInformation";
+import { CardSkeleton } from "../skeleton/CardSkeleton";
 
 export const PaymentHeader = () => {
-  const router = useRouter();
+  const {
+    totalVehicles,
+    totalAmountPayments,
+    totalAmountCurrentMonth,
+    loading,
+  } = useGeneralInformation();
+
   return (
-    <div className="w-full flex justify-around flex-wrap gap-2">
-      <Item variant="outline" className="w-96 border-neutral-500">
-        <ItemContent>
-          <ItemTitle>Registrar pago</ItemTitle>
-        </ItemContent>
-        <ItemActions>
-          <Button
-            size="icon-sm"
-            variant="outline"
-            className="rounded-full"
-            aria-label="Invite"
-            onClick={() => router.push("/payment/new")}
-          >
-            <Plus />
-          </Button>
-        </ItemActions>
-      </Item>
-      <Item variant="outline" className="w-96 border-neutral-400">
-        <ItemContent>
-          <ItemTitle>Registrar nuevo Vehículo</ItemTitle>
-        </ItemContent>
-        <ItemActions>
-          <Button
-            size="icon-sm"
-            variant="outline"
-            className="rounded-full"
-            aria-label="Invite"
-            onClick={() => router.push("/vehicle/new")}
-          >
-            <Plus />
-          </Button>
-        </ItemActions>
-      </Item>
+    <div className="w-full flex justify-around flex-wrap gap-4">
+      {loading ? (
+        <>
+          <CardSkeleton className="w-48 h-32" />
+          <CardSkeleton className="w-48 h-32" />
+          <CardSkeleton className="w-48 h-32" />
+        </>
+      ) : (
+        <>
+          <Item variant="outline" className="w-48 h-32 border-neutral-500">
+            <ItemContent className="flex flex-col items-center justify-center gap-2">
+              <ItemTitle className="text-5xl">${totalAmountPayments}</ItemTitle>
+              <ItemTitle className="text-xs text-muted-foreground text-center">
+                Monto de pagos total
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+          <Item variant="outline" className="w-48 h-32 border-neutral-500">
+            <ItemContent className="flex flex-col items-center justify-center gap-2">
+              <ItemTitle className="text-5xl">
+                ${totalAmountCurrentMonth}
+              </ItemTitle>
+              <ItemTitle className="text-xs text-muted-foreground text-center">
+                Monto de pagos del mes actual
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+          <Item variant="outline" className="w-48 h-32 border-neutral-500">
+            <ItemContent className="flex flex-col items-center justify-center gap-2">
+              <ItemTitle className="text-5xl">{totalVehicles}</ItemTitle>
+              <ItemTitle className="text-xs text-muted-foreground text-center">
+                Total de vehículos
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+        </>
+      )}
     </div>
   );
 };

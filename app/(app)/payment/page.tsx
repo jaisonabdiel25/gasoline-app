@@ -88,7 +88,7 @@ const PaymentPage = async ({ searchParams }: Props) => {
   }
 
   return (
-    <div className="w-full flex flex-col  items-center p-8 gap-8 mt-20">
+    <div className="w-full flex flex-col  items-center p-8 gap-8 mt-10">
       <PaymentHeader />
       <TablePayment payments={payments} />
     </div>
