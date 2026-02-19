@@ -1,5 +1,6 @@
 "use client";
-import { ThemeToggle } from "@/components/ThemeToogle";
+
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import {
   Card,

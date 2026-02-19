@@ -1,5 +1,5 @@
 "use client";
-import { ThemeToggle } from "@/components/ThemeToogle";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,6 +24,7 @@ import { LoginUser as LoginUserType } from "@/interface/user";
 import { signIn } from "next-auth/react";
 import { Controller } from "react-hook-form";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 type Props = {
   providers: Awaited<ReturnType<typeof import("next-auth/react").getProviders>>;

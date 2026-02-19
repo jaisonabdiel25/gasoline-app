@@ -1,4 +1,4 @@
-import { ThemeToggle } from "@/components/ThemeToogle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   Sidebar,
   SidebarContent,

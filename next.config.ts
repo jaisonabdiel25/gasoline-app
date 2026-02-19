@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'standalone',
+  images: {
+    domains: ["www.gravatar.com"],
+  }
 };
 
 export default nextConfig;

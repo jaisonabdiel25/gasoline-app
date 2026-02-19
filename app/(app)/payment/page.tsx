@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { CusomEmpty } from "@/components/CusomEmpty";
+import { CustomEmpty } from "@/components/CustomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
 import { prisma } from "@/lib/prisma";
 import { TablePayment } from "@/modules";
@@ -64,7 +64,7 @@ const PaymentPage = async ({ searchParams }: Props) => {
   if ((from || to) && payments.length === 0) {
     return (
       <div className="w-full flex items-center justify-center px-10">
-        <CusomEmpty
+        <CustomEmpty
           title="No hay pagos registrados para los filtros aplicados"
           description="Vuelve a aplicar los filtros o restablecelos para ver todos los pagos."
           labelButton="Limpiar filtros"
@@ -77,7 +77,7 @@ const PaymentPage = async ({ searchParams }: Props) => {
   if (!payments || payments.length === 0) {
     return (
       <div className="w-full flex items-center justify-center px-10">
-        <CusomEmpty
+        <CustomEmpty
           title="No hay pagos registrados"
           description="Registra un pago para comenzar."
           labelButton="Registrar Pago"

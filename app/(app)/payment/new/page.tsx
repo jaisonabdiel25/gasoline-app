@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { CusomEmpty } from "@/components/CusomEmpty";
+import { CustomEmpty } from "@/components/CustomEmpty";
 import { prisma } from "@/lib/prisma";
 import { FormPayment } from "@/modules";
 import { getServerSession } from "next-auth";
@@ -14,7 +14,7 @@ export default async function CreatePage() {
   if (vehicles.length === 0) {
     return (
       <div className="w-full flex items-center justify-center px-10">
-        <CusomEmpty
+        <CustomEmpty
           title="No tienes vehículos registrados"
           description="para registrar pagos debes tener almenos 1 vehiculo"
           labelButton="Registrar Vehículo"

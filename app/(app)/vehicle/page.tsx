@@ -1,5 +1,5 @@
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { CusomEmpty } from "@/components/CusomEmpty";
+import { CustomEmpty } from "@/components/CustomEmpty";
 import { prisma } from "@/lib/prisma";
 
 import { ListVehicle } from "@/modules/components/vehicle/ListVehicle";
@@ -15,7 +15,7 @@ const VehiclePage = async () => {
   if (vehicles.length === 0) {
     return (
       <div className="w-full flex items-center justify-center px-10">
-        <CusomEmpty
+        <CustomEmpty
           title="No hay vehículos registrados"
           description="Registra un nuevo vehículo para comenzar."
           labelButton="Registrar Vehículo"

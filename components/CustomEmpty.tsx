@@ -19,7 +19,7 @@ interface Props {
   resetparams?: boolean;
 }
 
-export function CusomEmpty({
+export function CustomEmpty({
   title,
   description,
   labelButton,
