@@ -5,9 +5,10 @@ import { CardSkeleton } from "../skeleton/CardSkeleton";
 
 export const PaymentHeader = () => {
   const {
-    totalVehicles,
     totalAmountPayments,
     totalAmountCurrentMonth,
+    averagePayments,
+    paymentCount,
     loading,
   } = useGeneralInformation();
 
@@ -15,6 +16,7 @@ export const PaymentHeader = () => {
     <div className="w-full flex justify-around flex-wrap gap-4">
       {loading ? (
         <>
+          <CardSkeleton className="w-48 h-32" />
           <CardSkeleton className="w-48 h-32" />
           <CardSkeleton className="w-48 h-32" />
           <CardSkeleton className="w-48 h-32" />
@@ -41,9 +43,17 @@ export const PaymentHeader = () => {
           </Item>
           <Item variant="outline" className="w-48 h-32 border-neutral-500">
             <ItemContent className="flex flex-col items-center justify-center gap-2">
-              <ItemTitle className="text-5xl">{totalVehicles}</ItemTitle>
+              <ItemTitle className="text-5xl">${paymentCount}</ItemTitle>
               <ItemTitle className="text-xs text-muted-foreground text-center">
-                Total de vehículos
+                Total de pagos realizados
+              </ItemTitle>
+            </ItemContent>
+          </Item>
+          <Item variant="outline" className="w-48 h-32 border-neutral-500">
+            <ItemContent className="flex flex-col items-center justify-center gap-2">
+              <ItemTitle className="text-5xl">{averagePayments}</ItemTitle>
+              <ItemTitle className="text-xs text-muted-foreground text-center">
+                Promedio por carga
               </ItemTitle>
             </ItemContent>
           </Item>
