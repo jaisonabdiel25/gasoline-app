@@ -17,7 +17,7 @@ interface Props {
 export const TablePayment = (props: Props) => {
   const { payments = [] } = props;
   return (
-    <>
+    <div className=" w-full xl:w-3/4">
       <div className="w-full flex justify-end px-4 mt-4">
         <FilterPayment />
       </div>
@@ -34,6 +34,6 @@ export const TablePayment = (props: Props) => {
           <TablePaymentRow payments={payments} />
         </TableBody>
       </Table>
-    </>
+    </div>
   );
 };

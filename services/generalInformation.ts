@@ -1,6 +1,7 @@
 "use server";
 
 import { CustomResponse } from "@/interface/global";
+import { PaymentWithRelations } from "@/interface/payment";
 import { VehicleWithRelations } from "@/interface/vehicle";
 import { prisma } from "@/lib/prisma";
 
@@ -21,3 +22,19 @@ export const getGeneralInformation = async (
     isSuccess: true,
   };
 };
+
+export async function getMonthlyVehicleTotals(userId: string): Promise<PaymentWithRelations[]> {
+  const payments = await prisma.payment.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      vehicle: true,
+    },
+    orderBy: {
+      createdAt: "asc",
+    },
+  })
+
+  return payments
+}
