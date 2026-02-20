@@ -41,7 +41,7 @@ export async function AppSidebar() {
             <div className="flex w-full justify-start">
               <SidebarGroupLabel>
                 <Link href={`/profile`}>
-                  <CustomAvatar avatarUrl={avatarUrl} />
+                  <CustomAvatar avatarUrl={avatarUrl} userFallback={userName.at(0)} />
                 </Link>
               </SidebarGroupLabel>
               <SidebarGroupLabel>{userName}</SidebarGroupLabel>

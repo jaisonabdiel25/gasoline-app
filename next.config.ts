@@ -1,10 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: 'standalone',
-  images: {
-    domains: ["www.gravatar.com"],
-  }
+  output: "standalone",
+images: {
+  remotePatterns: [
+    {
+      protocol: "https",
+      hostname: "**.googleusercontent.com",
+    },
+    {
+      protocol: "https",
+      hostname: "www.gravatar.com",
+    },
+  ],
+},
 };
 
 export default nextConfig;
