@@ -3,7 +3,6 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -138,15 +137,11 @@ export const Dashboard = (props: Props) => {
   }, [vehicleNames]);
 
   return (
-    <div className="flex flex-col gap-4 w-2/3 h-auto">
+    <div className="flex flex-col gap-4 w-2/5 md:w-2/4  h-auto">
       <Card>
         <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
           <div className="grid flex-1 gap-1">
             <CardTitle>Estadisticas de pagos realizados por vehículo</CardTitle>
-            <CardDescription>
-              Visualiza la evolución de tus gastos en combustible a lo largo del
-              tiempo. Analiza tus patrones de consumo y optimiza tus gastos.
-            </CardDescription>
           </div>
           <Select value={timeRange} onValueChange={setTimeRange}>
             <SelectTrigger
