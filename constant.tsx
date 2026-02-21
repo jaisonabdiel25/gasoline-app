@@ -4,7 +4,7 @@ import { Car, HandCoins, House, User2 } from "lucide-react";
 export const SIDEBAR_OPTIONS: SidebarItemsProps[] = [
     {
     id: '0',
-    label: "Inicio",
+    label: "Dashboard",
     icon: <House />,
     path: "/",
   },
