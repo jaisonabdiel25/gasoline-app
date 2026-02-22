@@ -17,6 +17,8 @@ type Props = {
   searchParams: Promise<{
     from?: string;
     to?: string;
+    page?: string;
+    size?: string;
   }>;
 };
 
@@ -28,7 +30,12 @@ interface DateFilter {
 }
 
 const PaymentPage = async ({ searchParams }: Props) => {
-  const { from, to } = await searchParams;
+  const { from, to, page, size } = await searchParams;
+
+  const currentPage = Number(page) > 0 ? Number(page) : 1;
+  const pageSize = Number(size) > 0 ? Number(size) : 10;
+
+  const skip = (currentPage - 1) * pageSize;
 
   const dateFilter: DateFilter = {};
 
@@ -52,6 +59,13 @@ const PaymentPage = async ({ searchParams }: Props) => {
 
   const session = await getServerSession(authOptions);
 
+  const totalPayments = await prisma.payment.count({
+    where: {
+      userId: session?.user?.id,
+      ...dateFilter,
+    },
+  });
+
   const payments: PaymentWithRelations[] = await prisma.payment.findMany({
     where: {
       userId: session?.user?.id,
@@ -59,7 +73,11 @@ const PaymentPage = async ({ searchParams }: Props) => {
     },
     orderBy: { createdAt: "desc" },
     include: { vehicle: true },
+    skip,
+    take: pageSize,
   });
+
+  const totalPages = Math.ceil(totalPayments / pageSize);
 
   if ((from || to) && payments.length === 0) {
     return (
@@ -90,7 +108,7 @@ const PaymentPage = async ({ searchParams }: Props) => {
   return (
     <div className="w-full flex flex-col  items-center p-8 gap-8 ">
       <PaymentHeader />
-      <TablePayment payments={payments} />
+      <TablePayment payments={payments} totalPages={totalPages} currentPage={currentPage} pageSize={pageSize} />
     </div>
   );
 };
