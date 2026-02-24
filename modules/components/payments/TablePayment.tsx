@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const TablePayment = (props: Props) => {
-  const { totalPages = 0, currentPage = 1, pageSize = 10, payments = [] } = props;
+  const { totalPages = 0, currentPage = 1, pageSize = 5, payments = [] } = props;
   return (
     <div className=" w-full xl:w-3/4">
       <div className="w-full flex justify-end px-4 mt-4">

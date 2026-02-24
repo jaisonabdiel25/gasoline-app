@@ -1,30 +1,12 @@
 import { VehicleWithRelations } from "@/interface/vehicle";
-import { getGeneralInformation } from "@/services/generalInformation";
-import { useSession } from "next-auth/react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { startOfMonth, endOfMonth, isWithinInterval } from "date-fns";
 
-export const useGeneralInformation = () => {
-  const { data: session } = useSession();
-  const [loading, setLoading] = useState(true);
-  const [generalInformation, setGeneralInformation] = useState<
-    VehicleWithRelations[]
-  >([]);
+interface Props {
+  generalInformation: VehicleWithRelations[];
+}
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (session?.user?.id) {
-        setLoading(true);
-        const generalInformation = await getGeneralInformation(session.user.id);
-        setGeneralInformation(
-          generalInformation?.data ?? ([] as VehicleWithRelations[]),
-        );
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [session?.user.id]);
+export const useGeneralInformation = ({ generalInformation }: Props) => {
 
   const { totalPayments, totalAmountPayments, averagePayments, paymentCount } =
     useMemo(() => {
@@ -87,7 +69,7 @@ export const useGeneralInformation = () => {
   }, [generalInformation]);
 
   return {
-    loading,
+    loading: false,
     totalPayments,
     paymentCount,
     totalAmountPayments,
