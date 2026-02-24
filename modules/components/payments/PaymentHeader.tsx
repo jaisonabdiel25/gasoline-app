@@ -6,8 +6,13 @@ import { formatNumber } from "@/utils/number";
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { VehicleWithRelations } from "@/interface/vehicle";
 
-export const PaymentHeader = () => {
+interface Props{
+  generalInformation?: VehicleWithRelations[]
+}
+ 
+export const PaymentHeader = ({ generalInformation = [] }: Props) => {
   const router = useRouter();
 
   const {
@@ -16,7 +21,7 @@ export const PaymentHeader = () => {
     averagePayments,
     paymentCount,
     loading,
-  } = useGeneralInformation();
+  } = useGeneralInformation({generalInformation});
 
   return (
     <>
@@ -41,10 +46,10 @@ export const PaymentHeader = () => {
       <div className="w-full flex justify-center flex-wrap gap-10">
         {loading ? (
           <>
-            <CardSkeleton className="w-48 h-32" />
-            <CardSkeleton className="w-48 h-32" />
-            <CardSkeleton className="w-48 h-32" />
-            <CardSkeleton className="w-48 h-32" />
+            <CardSkeleton className="w-42 2xl:w-52 h-24 2xl:h-32" />
+            <CardSkeleton className="w-42 2xl:w-52 h-24 2xl:h-32" />
+            <CardSkeleton className="w-42 2xl:w-52 h-24 2xl:h-32" />
+            <CardSkeleton className="w-42 2xl:w-52 h-24 2xl:h-32" />
           </>
         ) : (
           <>
