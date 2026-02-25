@@ -8,7 +8,7 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
-import { PencilIcon, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { deleteVehicles } from "@/services";
 import { useRouter } from "next/navigation";
 
@@ -37,7 +37,6 @@ export const ListVehicle = (props: Props) => {
               <ItemDescription>{`${model}  (${year})`}</ItemDescription>
             </ItemContent>
             <ItemActions className="flex gap-3">
-              <PencilIcon />
               <Trash2 onClick={() => handleDelete(id)} color="#b22a2a" />
             </ItemActions>
           </Item>

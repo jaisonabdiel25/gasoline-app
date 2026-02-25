@@ -3,8 +3,6 @@ import { CustomEmpty } from "@/components/CustomEmpty";
 import { PaymentWithRelations } from "@/interface/payment";
 import { prisma } from "@/lib/prisma";
 import { TablePayment } from "@/modules";
-import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
-import { getGeneralInformation } from "@/services/generalInformation";
 import { parseLocalDate } from "@/utils/dateUtil";
 import { addDays, startOfDay } from "date-fns";
 import { getServerSession } from "next-auth";
@@ -78,8 +76,6 @@ const PaymentPage = async ({ searchParams }: Props) => {
     take: pageSize,
   });
 
-  const generalInformation = await getGeneralInformation(session!.user.id);
-
   const totalPages = Math.ceil(totalPayments / pageSize);
 
   if ((from || to) && payments.length === 0) {
@@ -109,8 +105,7 @@ const PaymentPage = async ({ searchParams }: Props) => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center p-8 gap-8">
-      <PaymentHeader generalInformation={generalInformation?.data} />
+    <div className="w-full flex flex-col items-center">
       <TablePayment
         payments={payments}
         totalPages={totalPages}
