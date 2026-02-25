@@ -7,9 +7,9 @@ import {
 } from "@/components/ui/table";
 
 import { PaymentWithRelations } from "@/interface/payment";
+import { CustomPagination } from "../pagination/CustomPagination";
 import { TablePaymentRow } from "./TablePaymentRow";
 import { FilterPayment } from "./dialog/FilterPayment";
-import { CustomPagination } from "../pagination/CustomPagination";
 
 interface Props {
   payments?: PaymentWithRelations[];
@@ -19,7 +19,12 @@ interface Props {
 }
 
 export const TablePayment = (props: Props) => {
-  const { totalPages = 0, currentPage = 1, pageSize = 5, payments = [] } = props;
+  const {
+    totalPages = 0,
+    currentPage = 1,
+    pageSize = 5,
+    payments = [],
+  } = props;
   return (
     <div className=" w-full xl:w-3/4">
       <div className="w-full flex justify-end px-4 mt-4">
@@ -38,7 +43,13 @@ export const TablePayment = (props: Props) => {
           <TablePaymentRow payments={payments} />
         </TableBody>
       </Table>
-      <CustomPagination totalPages={totalPages} currentPage={currentPage} pageSize={pageSize} />
+
+        <CustomPagination
+          totalPages={totalPages}
+          currentPage={currentPage}
+          pageSize={pageSize}
+          className=" flex justify-end mt-6 px-4"
+        />
     </div>
   );
 };

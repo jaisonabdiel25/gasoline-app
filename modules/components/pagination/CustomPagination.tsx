@@ -14,12 +14,14 @@ interface Props {
   totalPages: number;
   currentPage: number;
   pageSize: number;
+  className?: string;
 }
 
 export function CustomPagination({
   totalPages,
   currentPage,
   pageSize,
+  className,
 }: Props) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -34,7 +36,7 @@ export function CustomPagination({
   if (totalPages <= 1) return null;
 
   return (
-    <Pagination>
+    <Pagination className={className}>
       <PaginationContent>
         {/* Previous */}
         <PaginationItem>
