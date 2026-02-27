@@ -28,9 +28,9 @@ export const ListVehicle = (props: Props) => {
   };
   const { vehicle = [] } = props;
   return (
-    <div className="w-full flex flex-wrap gap-4">
+    <div className="w-full flex flex-wrap gap-4 h-12 ">
       {vehicle.map(({ id, name, model, year }) => (
-        <div key={id}>
+        <div key={id} className="w-full sm:max-w-md">
           <Item variant="outline" className=" flex w-96 border-neutral-400">
             <ItemContent>
               <ItemTitle>{name}</ItemTitle>

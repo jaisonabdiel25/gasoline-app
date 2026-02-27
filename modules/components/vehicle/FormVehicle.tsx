@@ -26,14 +26,14 @@ export const FormVehicle = () => {
   const router = useRouter();
 
   const { data: user } = useSession();
-  const { form } = useCreateVehicle();
+  const { form, handleReset } = useCreateVehicle();
 
   const onSubmit = async (values: VehicleValues) => {
     const request = {
       ...values,
-      userId: user?.user?.id,
+      userId: user!.user!.id,
     };
-    await createVehicle([request]);
+    await createVehicle(request);
 
     router.push("/vehicle");
   };
@@ -134,7 +134,7 @@ export const FormVehicle = () => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => form.reset()}
+            onClick={() => handleReset()}
             className="flex flex-1"
           >
             Descartar
