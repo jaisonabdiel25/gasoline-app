@@ -17,6 +17,11 @@ export const useCreatePayment = () => {
     },
   });
 
+  const handleDiscarted = () => {
+    form.reset();
+    router.push("/payment");
+  };
+
   const onSubmit = async (values: PaymentValues) => {
     const request = {
       ...values,
@@ -33,5 +38,6 @@ export const useCreatePayment = () => {
   return {
     form,
     onSubmit,
+    handleDiscarted
   };
 };

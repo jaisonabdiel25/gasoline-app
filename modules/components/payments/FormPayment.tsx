@@ -27,13 +27,13 @@ interface Props {
 
 export const FormPayment = (props: Props) => {
   const { vehicles = [] } = props;
-  const { form, onSubmit } = useCreatePayment();
+  const { form, onSubmit, handleDiscarted } = useCreatePayment();
 
   const listVehicles = useMemo(() => {
     return (
       vehicles?.map((vehicle) => ({
         id: vehicle.id,
-        label: `${vehicle.name} (${vehicle.model})`,
+        label: `${vehicle.name} ${vehicle.model ? `(${vehicle.model})` : ""}`,
       })) ?? []
     );
   }, [vehicles]);
@@ -114,7 +114,7 @@ export const FormPayment = (props: Props) => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => form.reset()}
+            onClick={() => handleDiscarted()}
             className="w-full"
           >
             Descartar

@@ -39,7 +39,7 @@ export const TablePaymentRow = (props: Props) => {
           className="border-b border-gray-400 dark:border-neutral-600"
         >
           <TableCell className="w-3xl text-center">{amount}</TableCell>
-          <TableCell className="w-3xl text-center">{`${vehicle?.name} (${vehicle?.model})`}</TableCell>
+          <TableCell className="w-3xl text-center">{`${vehicle?.name} ${vehicle?.model ? `(${vehicle?.model})` : ""}`}</TableCell>
           <TableCell className="w-3xl text-center">
             {format(createdAt, "PPP", { locale: es })} -{" "}
             <span className="text-xs text-gray-500 dark:text-gray-400">
