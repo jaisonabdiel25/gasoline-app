@@ -6,13 +6,22 @@ import {
   getMonthlyVehicleTotals,
 } from "@/services/generalInformation";
 import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
 
-  const payments = await getMonthlyVehicleTotals(session?.user.id || "");
+  if(!session) {
+    redirect("/signin");
+  }
 
-  const generalInformation = await getGeneralInformation(session!.user.id);
+  const payments = await getMonthlyVehicleTotals(session.user.id);
+
+  if (!payments || payments?.length === 0) {
+    redirect("/payment")
+  }
+
+  const generalInformation = await getGeneralInformation(session.user.id);
 
   return (
     <div className="w-full p-8 flex flex-col gap-8 items-center">
