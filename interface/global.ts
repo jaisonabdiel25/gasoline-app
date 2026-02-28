@@ -1,7 +1,7 @@
 export interface CustomResponse<T> {
   isSuccess: boolean;
   data?: T;
-  errors?: unknown
+  errors?: string[];
 }
 
 export interface Ids {

@@ -1,6 +1,5 @@
 "use client";
 
-import { Vehicle } from "@prisma/client";
 import {
   Item,
   ItemActions,
@@ -8,9 +7,11 @@ import {
   ItemDescription,
   ItemTitle,
 } from "@/components/ui/item";
-import { Trash2 } from "lucide-react";
 import { deleteVehicles } from "@/services";
+import { Vehicle } from "@prisma/client";
+import { Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Props {
   vehicle?: Vehicle[];
@@ -23,7 +24,26 @@ export const ListVehicle = (props: Props) => {
     const response = await deleteVehicles([{ id }]);
 
     if (response.isSuccess) {
+      toast.success("Vehículo eliminado correctamente", {
+        description: "El vehículo ha sido eliminado exitosamente.",
+        action: {
+          label: "Entendido",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+      });
       router.refresh();
+    } else {
+      toast.error("Error al eliminar el vehículo", {
+        description: response?.errors || "Ocurrió un error al eliminar el vehículo. Por favor, intenta nuevamente.",
+        action: {
+          label: "Entendido",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+      });
     }
   };
   const { vehicle = [] } = props;

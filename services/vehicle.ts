@@ -14,7 +14,7 @@ export const createVehicle = async (
   if (!vehicle) {
     return {
       isSuccess: false,
-      errors: "Error al crear el vehiculo",
+      errors: ["Error al crear el vehiculo"],
     };
   }
 
@@ -27,6 +27,32 @@ export const createVehicle = async (
 export const deleteVehicles = async (
   value: Ids[],
 ): Promise<CustomResponse<void>> => {
+
+  const existingVehicles = await prisma.vehicle.findMany({
+    where: {
+      id: {
+        in: value.map((item) => item.id),
+      },
+    },
+    include: {
+      payments: true,
+    }
+  });
+
+  if (existingVehicles.length === 0) {
+    return {
+      isSuccess: false,
+      errors: ["No se encontraron vehículos para eliminar"],
+    };
+  }
+
+  if (existingVehicles.some(vehicle => vehicle.payments.length > 0)) {
+    return {
+      isSuccess: false,
+      errors: ["No se pueden eliminar vehículos que tienen pagos asociados"],
+    };
+  }
+
   const deleted = await prisma.vehicle.deleteMany({
     where: {
       id: {
@@ -38,7 +64,7 @@ export const deleteVehicles = async (
   if (!deleted) {
     return {
       isSuccess: false,
-      errors: "Error al eliminar el vehiculo",
+      errors: ["Error al eliminar el vehiculo"],
     };
   }
 

@@ -41,9 +41,10 @@ export const resgisterUser = async (
       isSuccess: true,
     };
   } catch (errors) {
+    console.error(errors);
     return {
       isSuccess: false,
-      errors: errors,
+      errors: ["Error al crear usuario"],
     };
   }
 };

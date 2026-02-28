@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { EllipsisVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Props {
   payments?: PaymentWithRelations[];
@@ -27,7 +28,27 @@ export const TablePaymentRow = (props: Props) => {
     const response = await deletePayments([{ id }]);
 
     if (response.isSuccess) {
+      toast.success("Pago eliminado correctamente", {
+        description: "El pago ha sido eliminado exitosamente.",
+        action: {
+          label: "Entendido",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+      });
       router.refresh();
+    } else {
+      toast.error("Error al eliminar el pago", {
+        description:
+          "Ocurrió un error al eliminar el pago. Por favor, intenta nuevamente.",
+        action: {
+          label: "Entendido",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+      });
     }
   };
 
