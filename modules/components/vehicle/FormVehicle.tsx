@@ -17,26 +17,9 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
-import { VehicleValues } from "@/interface/vehicle";
-import { createVehicle } from "@/services";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 export const FormVehicle = () => {
-  const router = useRouter();
-
-  const { data: user } = useSession();
-  const { form, handleReset } = useCreateVehicle();
-
-  const onSubmit = async (values: VehicleValues) => {
-    const request = {
-      ...values,
-      userId: user!.user!.id,
-    };
-    await createVehicle(request);
-
-    router.push("/vehicle");
-  };
+  const { form, handleReset, onSubmit } = useCreateVehicle();
 
   return (
     <div className=" w-full flex justify-center items-center">

@@ -4,6 +4,7 @@ import { paymentSchema, PaymentValues } from "@/validator/zod/payment";
 import { useRouter } from "next/navigation";
 import { createPayment } from "@/services";
 import { useSession } from "next-auth/react";
+import { toast } from "sonner";
 
 export const useCreatePayment = () => {
   const { data: session } = useSession();
@@ -31,13 +32,33 @@ export const useCreatePayment = () => {
     };
     const response = await createPayment([request]);
     if (response.isSuccess) {
-      router.push('/payment');
+      toast.success("Pago creado correctamente", {
+        description: "El pago ha sido creado exitosamente.",
+        action: {
+          label: "Entendido",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+      });
+      router.push("/payment");
+    } else {
+      toast.error("Error al crear el pago", {
+        description:
+          "Ocurrió un error al crear el pago. Por favor, intenta nuevamente.",
+        action: {
+          label: "Entendido",
+          onClick: () => {
+            toast.dismiss();
+          },
+        },
+      });
     }
   };
 
   return {
     form,
     onSubmit,
-    handleDiscarted
+    handleDiscarted,
   };
 };

@@ -1,6 +1,7 @@
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/modules";
 import type { Metadata } from "next";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Gasoline App",
@@ -17,6 +18,7 @@ export default function RootLayout({
         <AppSidebar />
         <SidebarTrigger />
         {children}
+        <Toaster />
       </SidebarProvider>
     </div>
   );
