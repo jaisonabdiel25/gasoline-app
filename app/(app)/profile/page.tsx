@@ -15,7 +15,10 @@ const ProfilePage = () => {
       />
       <span className="text-3xl font-mono">{user?.user?.name}</span>
       <div className="w-full max-w-2xl p-4 border rounded-md bg-white/10">
-        <span className="text-xs font-mono wrap-break-word" > {JSON.stringify(user)}</span>
+        <div className="text-xs font-mono wrap-break-word flex flex-col gap-4">
+          <span>Nombre: {user?.user.name}</span>
+          <span>Correo: {user?.user.email}</span>
+        </div>
       </div>
     </div>
   );

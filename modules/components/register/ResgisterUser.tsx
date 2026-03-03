@@ -58,13 +58,13 @@ export const ResgisterUser = () => {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel htmlFor="form-rhf-demo-title">
-                      Nombre
+                      Nombre Completo
                     </FieldLabel>
                     <Input
                       {...field}
                       id="form-rhf-demo-title"
                       aria-invalid={fieldState.invalid}
-                      placeholder="Ingresa tu nombre"
+                      placeholder="Ingresa tu nombre completo"
                       autoComplete="off"
                     />
                     {fieldState.invalid && (

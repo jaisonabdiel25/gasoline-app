@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { es } from "date-fns/locale";
+import { useState } from "react";
 
 interface Props {
   onChange: (e: Date | undefined) => void;
@@ -20,8 +21,16 @@ interface Props {
 export const DateButton = (props: Props) => {
   const { onChange, value } = props;
 
+  const [open, setOpen] = useState(false)
+
+
+  const handleSelect = (date: Date | undefined) => {
+    onChange(date);
+    setOpen(false); // 👈 cierra el calendario automáticamente
+  };
+
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
@@ -41,7 +50,7 @@ export const DateButton = (props: Props) => {
           mode="single"
           locale={es}
           selected={value}
-          onSelect={onChange}
+          onSelect={handleSelect}
           disabled={(date) =>
             date > new Date() || date < new Date("1900-01-01")
           }
