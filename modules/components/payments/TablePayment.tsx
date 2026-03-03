@@ -27,7 +27,7 @@ export const TablePayment = (props: Props) => {
   } = props;
   return (
     <div className=" w-full xl:w-3/4">
-      <div className="w-full flex justify-end px-4 mt-4">
+      <div className="w-full flex justify-end py-2 items-center gap-2">
         <FilterPayment />
       </div>
       <Table className="shadow-card rounded-lg w-full border-gray-600 dark:border-neutral-500">
