@@ -10,6 +10,7 @@ import { PaymentWithRelations } from "@/interface/payment";
 import { CustomPagination } from "../pagination/CustomPagination";
 import { TablePaymentRow } from "./TablePaymentRow";
 import { FilterPayment } from "./dialog/FilterPayment";
+import { CustomDeleteBadge } from "@/components/CustomDeleteBadge";
 
 interface Props {
   payments?: PaymentWithRelations[];
@@ -27,7 +28,10 @@ export const TablePayment = (props: Props) => {
   } = props;
   return (
     <div className=" w-full xl:w-3/4">
-      <div className="w-full flex justify-end py-2 items-center gap-2">
+      <div className="w-full flex justify-end py-2 items-center gap-3">
+        <div className="flex gap-3">
+          <CustomDeleteBadge />
+        </div>
         <FilterPayment />
       </div>
       <Table className="shadow-card rounded-lg w-full border-gray-600 dark:border-neutral-500">
@@ -44,12 +48,12 @@ export const TablePayment = (props: Props) => {
         </TableBody>
       </Table>
 
-        <CustomPagination
-          totalPages={totalPages}
-          currentPage={currentPage}
-          pageSize={pageSize}
-          className=" flex justify-end mt-6 px-4"
-        />
+      <CustomPagination
+        totalPages={totalPages}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        className=" flex justify-end mt-6 px-4"
+      />
     </div>
   );
 };
