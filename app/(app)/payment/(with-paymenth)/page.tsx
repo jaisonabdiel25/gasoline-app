@@ -107,6 +107,7 @@ const PaymentPage = async ({ searchParams }: Props) => {
   return (
     <div className="w-full flex flex-col items-center">
       <TablePayment
+        filters={{ from, to }}
         payments={payments}
         totalPages={totalPages}
         currentPage={currentPage}

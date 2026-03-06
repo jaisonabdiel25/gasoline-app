@@ -13,6 +13,7 @@ import { FilterPayment } from "./dialog/FilterPayment";
 import { CustomDeleteBadge } from "@/components/CustomDeleteBadge";
 
 interface Props {
+  filters: Record<string, string | undefined>;
   payments?: PaymentWithRelations[];
   totalPages?: number;
   currentPage?: number;
@@ -21,16 +22,27 @@ interface Props {
 
 export const TablePayment = (props: Props) => {
   const {
+    filters,
     totalPages = 0,
     currentPage = 1,
     pageSize = 5,
     payments = [],
   } = props;
+
+  const filterList = Object.entries(filters)
+    .filter(([, value]) => value !== undefined)
+    .map(([key, value]) => ({
+      value: `${key}: ${value}`,
+      key,
+    }));
+
   return (
     <div className=" w-full xl:w-3/4">
       <div className="w-full flex justify-end py-2 items-center gap-3">
         <div className="flex gap-3">
-          <CustomDeleteBadge />
+          {filterList.map((x) => (
+            <CustomDeleteBadge key={x.value} label={x.value} param={x.key} />
+          ))}
         </div>
         <FilterPayment />
       </div>
