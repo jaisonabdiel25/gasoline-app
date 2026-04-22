@@ -7,8 +7,16 @@ import { Vehicle } from "@prisma/client";
 export const createVehicle = async (
   values: VehicleValues,
 ): Promise<CustomResponse<Vehicle>> => {
+  const existingVehicle = await prisma.vehicle.findMany({
+    where: {
+      userId: values.userId,
+    },
+  });
+
+  const isMain = existingVehicle.length === 0;
+
   const vehicle = await prisma.vehicle.create({
-    data: values,
+    data: { ...values, isMain },
   });
 
   if (!vehicle) {
@@ -27,7 +35,6 @@ export const createVehicle = async (
 export const deleteVehicles = async (
   value: Ids[],
 ): Promise<CustomResponse<void>> => {
-
   const existingVehicles = await prisma.vehicle.findMany({
     where: {
       id: {
@@ -36,7 +43,7 @@ export const deleteVehicles = async (
     },
     include: {
       payments: true,
-    }
+    },
   });
 
   if (existingVehicles.length === 0) {
@@ -46,7 +53,7 @@ export const deleteVehicles = async (
     };
   }
 
-  if (existingVehicles.some(vehicle => vehicle.payments.length > 0)) {
+  if (existingVehicles.some((vehicle) => vehicle.payments.length > 0)) {
     return {
       isSuccess: false,
       errors: ["No se pueden eliminar vehículos que tienen pagos asociados"],

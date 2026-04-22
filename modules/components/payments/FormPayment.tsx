@@ -27,7 +27,7 @@ interface Props {
 
 export const FormPayment = (props: Props) => {
   const { vehicles = [] } = props;
-  const { form, onSubmit, handleDiscarted } = useCreatePayment();
+  const { form, onSubmit, handleDiscarted } = useCreatePayment({ vehicles });
 
   const listVehicles = useMemo(() => {
     return (
@@ -97,6 +97,7 @@ export const FormPayment = (props: Props) => {
                         field.onChange(e);
                       }}
                       data={listVehicles}
+                      defaultValue={field.value}
                     />
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />

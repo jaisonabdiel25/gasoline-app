@@ -16,7 +16,6 @@ export const CustomDeleteBadge = ({ label, param }: Props) => {
 
   const handleClick = () => {
     const params = new URLSearchParams(searchParams.toString());
-    console.log({ params });
     params.delete(param);
 
     const query = params.toString();

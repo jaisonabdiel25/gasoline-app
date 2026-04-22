@@ -12,7 +12,7 @@ docker compose up -d
 #Prisma commands
 ```
 npx prisma init
-npx prisma migrate dev
+npx prisma generate --name nombre_migración
 npx prisma generate
 
 ```
