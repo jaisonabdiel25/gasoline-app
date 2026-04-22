@@ -27,6 +27,8 @@ model Vehicle {
   updatedAt DateTime? @db.Timestamptz
   payments  Payment[]
   user      User      @relation(fields: [userId], references: [id])
+  isMain    Boolean   @default(false)
+  isActive  Boolean   @default(true)
   userId    String
 }
 
