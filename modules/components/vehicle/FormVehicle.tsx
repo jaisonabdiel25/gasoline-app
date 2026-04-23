@@ -17,9 +17,17 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
+import { Vehicle } from "@prisma/client";
+import { Checkbox } from "@/components/ui/checkbox";
 
-export const FormVehicle = () => {
-  const { form, handleReset, onSubmit } = useCreateVehicle();
+interface Props {
+  vehicle?: Vehicle;
+  isEdit?: boolean;
+}
+
+export const FormVehicle = (props: Props) => {
+  const { vehicle, isEdit = false } = props;
+  const { form, handleReset, onSubmit } = useCreateVehicle({ vehicle, isEdit });
 
   return (
     <div className=" w-full flex justify-center items-center">
@@ -104,6 +112,23 @@ export const FormVehicle = () => {
                     {fieldState.invalid && (
                       <FieldError errors={[fieldState.error]} />
                     )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="isMain"
+                control={form.control}
+                render={({ field }) => (
+                  <Field orientation="horizontal">
+                    <Checkbox
+                      id="terms-checkbox-basic"
+                      name="terms-checkbox-basic"
+                      checked={field.value}
+                      onCheckedChange={(checked) => field.onChange(checked)}
+                    />
+                    <FieldLabel htmlFor="terms-checkbox-basic">
+                      Establecer como vehículo principal
+                    </FieldLabel>
                   </Field>
                 )}
               />

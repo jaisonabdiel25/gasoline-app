@@ -16,7 +16,7 @@ export const createVehicle = async (
   const isMain = existingVehicle.length === 0;
 
   const vehicle = await prisma.vehicle.create({
-    data: { ...values, isMain },
+    data: { ...values, isMain, userId: values.userId! },
   });
 
   if (!vehicle) {
@@ -77,5 +77,73 @@ export const deleteVehicles = async (
 
   return {
     isSuccess: true,
+  };
+};
+
+export const getVehicleById = async (
+  id: string,
+): Promise<CustomResponse<Vehicle>> => {
+  const vehicle = await prisma.vehicle.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!vehicle) {
+    return {
+      isSuccess: false,
+      errors: ["Vehículo no encontrado"],
+    };
+  }
+
+  return {
+    isSuccess: true,
+    data: vehicle,
+  };
+};
+
+export const updateVehicle = async (
+  id: string,
+  values: VehicleValues,
+): Promise<CustomResponse<Vehicle>> => {
+  //solo puede haber un vehículo principal por usuario, si el vehículo que se va a actualizar es el principal y se quiere cambiar a opcional, se debe validar que no exista otro vehículo principal para ese usuario
+  if (values.isMain) {
+    const existingMainVehicle = await prisma.vehicle.findFirst({
+      where: {
+        userId: values.userId,
+        isMain: true,
+      },
+    });
+
+    // actualizar a false el vehículo principal actual del usuario
+    if (existingMainVehicle && existingMainVehicle.id !== id) {
+      await prisma.vehicle.update({
+        where: {
+          id: existingMainVehicle.id,
+        },
+        data: {
+          isMain: false,
+        },
+      });
+    }
+  }
+
+  const vehicle = await prisma.vehicle.update({
+    where: {
+      id,
+    },
+    data: values,
+  });
+
+  if (!vehicle) {
+    return {
+      isSuccess: false,
+      errors: ["Vehículo no encontrado"],
+    };
+  }
+
+  return {
+    isSuccess: true,
+    data: vehicle,
   };
 };
