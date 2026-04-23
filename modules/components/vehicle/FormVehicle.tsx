@@ -36,10 +36,11 @@ export const FormVehicle = (props: Props) => {
         style={{ background: "var(--card-background)" }}
       >
         <CardHeader>
-          <CardTitle>Agrega un vehiculo a tu usuario</CardTitle>
+          <CardTitle>{isEdit ? "Editar Vehículo" : "Agregar un Vehículo a tu perfil"}</CardTitle>
           <CardDescription>
-            Si ya tienes vehiculos registrados, podras agregar otros como
-            opcionales.
+            {isEdit
+              ? "Modifica los detalles de tu vehículo"
+              : "Completa el formulario para agregar un nuevo vehículo a tu perfil"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -137,7 +138,7 @@ export const FormVehicle = (props: Props) => {
         </CardContent>
         <CardFooter className="w-full flex flex-wrap gap-4">
           <Button className="flex flex-1" type="submit" form="form-rhf-demo">
-            Crear
+            {isEdit ? "Actualizar" : "Crear"}
           </Button>
           <Button
             type="button"
