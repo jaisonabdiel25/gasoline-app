@@ -137,7 +137,7 @@ export const Dashboard = (props: Props) => {
   }, [vehicleNames]);
 
   return (
-    <div className="flex flex-col gap-4 w-2/5 md:w-2/4  h-auto">
+    <div className="flex flex-col gap-4 w-full lg:w-3/4 h-auto">
       <Card>
         <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
           <div className="grid flex-1 gap-1">
