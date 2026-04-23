@@ -2,9 +2,10 @@ import { Prisma } from "@prisma/client";
 
 export interface VehicleValues {
   name: string;
+  isMain: boolean;
+  year?: number;
   model?: string;
-  year: number;
-  userId: string;
+  userId?: string;
 }
 
 export type VehicleWithRelations = Prisma.VehicleGetPayload<{

@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/item";
 import { deleteVehicles } from "@/services";
 import { Vehicle } from "@prisma/client";
-import { Trash2 } from "lucide-react";
+import { PencilIcon, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -36,7 +36,9 @@ export const ListVehicle = (props: Props) => {
       router.refresh();
     } else {
       toast.error("Error al eliminar el vehículo", {
-        description: response?.errors || "Ocurrió un error al eliminar el vehículo. Por favor, intenta nuevamente.",
+        description:
+          response?.errors ||
+          "Ocurrió un error al eliminar el vehículo. Por favor, intenta nuevamente.",
         action: {
           label: "Entendido",
           onClick: () => {
@@ -46,18 +48,38 @@ export const ListVehicle = (props: Props) => {
       });
     }
   };
+
   const { vehicle = [] } = props;
   return (
     <div className="w-full flex flex-wrap gap-4 h-12 ">
-      {vehicle.map(({ id, name, model, year }) => (
+      {vehicle.map(({ id, name, model, year, isMain }) => (
         <div key={id} className="w-full sm:max-w-md">
-          <Item variant="outline" className=" flex w-96 border-neutral-400">
+          <Item
+            variant="outline"
+            className=" flex w-96 border-neutral-400 h-26"
+          >
             <ItemContent>
-              <ItemTitle>{name}</ItemTitle>
-              <ItemDescription>{`${model}  (${year})`}</ItemDescription>
+              <ItemTitle className="capitalize">{name}</ItemTitle>
+              <ItemDescription className="capitalize">{`${model}  (${year})`}</ItemDescription>
+              {isMain && (
+                <ItemDescription className="text-green-500 font-light text-xs">
+                  Vehículo principal
+                </ItemDescription>
+              )}
             </ItemContent>
             <ItemActions className="flex gap-3">
-              <Trash2 onClick={() => handleDelete(id)} color="#b22a2a" />
+              <PencilIcon
+                className="cursor-pointer"
+                onClick={() => router.push(`vehicle/${id}/edit`)}
+                color="#cccccc"
+              />
+            </ItemActions>
+            <ItemActions className="flex gap-3">
+              <Trash2
+                className="cursor-pointer"
+                onClick={() => handleDelete(id)}
+                color="#b22a2a"
+              />
             </ItemActions>
           </Item>
         </div>
