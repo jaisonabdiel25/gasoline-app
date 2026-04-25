@@ -19,30 +19,29 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useRegisterUser } from "@/hooks/useRegisterUser";
-import { UserRegisterValues } from "@/interface/user";
-import { resgisterUser } from "@/services/user";
+import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { Controller } from "react-hook-form";
 
-export const ResgisterUser = () => {
+interface Props {
+  isEdit?: boolean;
+  user?: User;
+}
+
+export const ResgisterUser = (props: Props) => {
+  const { isEdit = false } = props;
+
   const router = useRouter();
-
-  const { form } = useRegisterUser();
-
-  const onSubmit = async (values: UserRegisterValues) => {
-    const { isSuccess } = await resgisterUser(values);
-
-    if (isSuccess) {
-      router.push("/signin");
-    }
-  };
+  const { form, onSubmit } = useRegisterUser(props);
 
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Resgistra una nueva cuenta</CardTitle>
+        <CardTitle>{isEdit ? "Editar Cuenta" : "Registrar Cuenta"}</CardTitle>
         <CardDescription>
-          Registra los datos solicitados para crear una nueva cuenta en GasolineApp
+          {isEdit
+            ? "Edita los datos de tu cuenta"
+            : "Registra los datos solicitados para crear una nueva cuenta en GasolineApp"}
         </CardDescription>
         <CardAction>
           <ThemeToggle />
@@ -73,87 +72,102 @@ export const ResgisterUser = () => {
                   </Field>
                 )}
               />
-              <Controller
-                name="email"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      Correo
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Ingrese un correo electrónico"
-                      autoComplete="off"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-              <Controller
-                name="password"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      Contraseña
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Ingrese una contraseña"
-                      autoComplete="off"
-                      name="password"
-                      type="password"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
-              <Controller
-                name="passwordConfirm"
-                control={form.control}
-                render={({ field, fieldState }) => (
-                  <Field data-invalid={fieldState.invalid}>
-                    <FieldLabel htmlFor="form-rhf-demo-title">
-                      Confirmar Contraseña
-                    </FieldLabel>
-                    <Input
-                      {...field}
-                      id="form-rhf-demo-title"
-                      aria-invalid={fieldState.invalid}
-                      placeholder="Confirme la cntraseña"
-                      autoComplete="off"
-                      name="passwordConfirm"
-                      type="password"
-                    />
-                    {fieldState.invalid && (
-                      <FieldError errors={[fieldState.error]} />
-                    )}
-                  </Field>
-                )}
-              />
+
+              {!isEdit && (
+                <Controller
+                  name="email"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="form-rhf-demo-title">
+                        Correo
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        id="form-rhf-demo-title"
+                        aria-invalid={fieldState.invalid}
+                        placeholder="Ingrese un correo electrónico"
+                        autoComplete="off"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+              )}
+
+              {!isEdit && (
+                <Controller
+                  name="password"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="form-rhf-demo-title">
+                        Contraseña
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        id="form-rhf-demo-title"
+                        aria-invalid={fieldState.invalid}
+                        placeholder="Ingrese una contraseña"
+                        autoComplete="off"
+                        name="password"
+                        type="password"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+              )}
+
+              {!isEdit && (
+                <Controller
+                  name="passwordConfirm"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="form-rhf-demo-title">
+                        Confirmar Contraseña
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        id="form-rhf-demo-title"
+                        aria-invalid={fieldState.invalid}
+                        placeholder="Confirme la cntraseña"
+                        autoComplete="off"
+                        name="passwordConfirm"
+                        type="password"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+              )}
             </FieldGroup>
           </div>
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-4">
         <Button type="submit" form="form-register-user" className="w-full">
-          Resgistrarse
+          {isEdit ? "Actualizar Cuenta" : "Registrarse"}
         </Button>
         <Button
-          onClick={() => router.push("/signin")}
+          onClick={() => {
+            if (isEdit) {
+              router.push("/profile");
+            } else {
+              router.push("/login");
+            }
+          }}
           className="w-full"
           variant={"outline"}
         >
-          ir al inicio de sesión
+          {isEdit ? "Cancelar" : "Ir a Iniciar Sesión"}
         </Button>
       </CardFooter>
     </Card>
