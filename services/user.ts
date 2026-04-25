@@ -48,3 +48,50 @@ export const resgisterUser = async (
     };
   }
 };
+
+export const updateUser = async (
+  id: string,
+  user: UserRegisterValues,
+): Promise<CustomResponse<User>> => {
+  try {
+    const { name } = user;
+
+    await prisma.user.update({
+      where: { id },
+      data: {
+        name,
+      },
+    });
+
+    return {
+      isSuccess: true,
+    };
+  } catch (errors) {
+    console.error(errors);
+    return {
+      isSuccess: false,
+      errors: ["Error al actualizar usuario"],
+    };
+  }
+};
+
+export const updateImageUser = async (id: string, image: string) => {
+  try {
+    await prisma.user.update({
+      where: { id },
+      data: {
+        image,
+      },
+    });
+
+    return {
+      isSuccess: true,
+    };
+  } catch (errors) {
+    console.error(errors);
+    return {
+      isSuccess: false,
+      errors: ["Error al actualizar imagen de usuario"],
+    };
+  }
+};
