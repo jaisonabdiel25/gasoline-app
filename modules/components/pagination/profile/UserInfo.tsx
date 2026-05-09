@@ -8,6 +8,7 @@ import { Pencil } from "lucide-react";
 import { useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { useUserStore } from "@/zustand/store/useUserStore";
 
 interface Props {
   user: User | null;
@@ -18,6 +19,8 @@ export const UserInfo = ({ user }: Props) => {
   const handleClick = () => {
     inputRef.current?.click();
   };
+
+  const { setImageUrl } = useUserStore();
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,7 +37,7 @@ export const UserInfo = ({ user }: Props) => {
     const data = await res.json();
 
     await updateImageUser(user?.id ?? "", data.url);
-
+    setImageUrl(data.url);
     router.refresh();
   };
   return (
