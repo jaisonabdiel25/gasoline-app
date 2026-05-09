@@ -8,7 +8,7 @@ export default async function CreatePage() {
   const session = await getServerSession(authOptions);
   const vehicles = await prisma.vehicle.findMany({
     orderBy: { createdAt: "desc" },
-    where: { userId: session?.user?.id },
+    where: { userId: session?.user?.id, isActive: true },
   });
 
   if (vehicles.length === 0) {

@@ -14,6 +14,7 @@ interface Props {
   onChange: (value: string) => void;
   placeholder?: string;
   classname?: string;
+  defaultValue?: string;
 }
 
 export const CustomSelect = (props: Props) => {
@@ -21,11 +22,12 @@ export const CustomSelect = (props: Props) => {
     data,
     label,
     onChange,
+    defaultValue,
     placeholder = null,
     classname = "w-full",
   } = props;
   return (
-    <Select onValueChange={onChange}>
+    <Select defaultValue={defaultValue} onValueChange={onChange}>
       <SelectTrigger className={classname}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

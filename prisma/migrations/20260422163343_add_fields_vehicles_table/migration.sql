@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Vehicle" ADD COLUMN     "isActive" BOOLEAN NOT NULL DEFAULT true,
+ADD COLUMN     "isMain" BOOLEAN NOT NULL DEFAULT false;

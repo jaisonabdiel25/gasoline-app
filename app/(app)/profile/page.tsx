@@ -1,27 +1,18 @@
-"use client";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { prisma } from "@/lib/prisma";
+import { UserInfo } from "@/modules/components/pagination/profile/UserInfo";
+import { getServerSession } from "next-auth";
 
-import { CustomAvatar } from "@/modules/components/avatar/CustomAvatar";
-import { useSession } from "next-auth/react";
-const ProfilePage = () => {
-  const { data: user } = useSession();
+const ProfilePage = async () => {
+  const session = await getServerSession(authOptions);
 
-  return (
-    <div className="w-full flex flex-col items-center p-10 gap-5">
-      <CustomAvatar
-        avatarUrl={
-          user?.user?.image ?? "https://www.gravatar.com/avatar/?d=mp&s=200"
-        }
-        className="w-40 h-40"
-      />
-      <span className="text-3xl font-mono">{user?.user?.name}</span>
-      <div className="w-full max-w-2xl p-4 border rounded-md bg-white/10">
-        <div className="text-xs font-mono wrap-break-word flex flex-col gap-4">
-          <span>Nombre: {user?.user.name}</span>
-          <span>Correo: {user?.user.email}</span>
-        </div>
-      </div>
-    </div>
-  );
+  const user = await prisma.user.findUnique({
+    where: {
+      id: session?.user?.id ?? undefined,
+    },
+  });
+
+  return <UserInfo user={user} />;
 };
 
 export default ProfilePage;

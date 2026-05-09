@@ -5,8 +5,13 @@ import { useRouter } from "next/navigation";
 import { createPayment } from "@/services";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
+import { Vehicle } from "@prisma/client";
 
-export const useCreatePayment = () => {
+interface Props {
+  vehicles: Vehicle[];
+}
+
+export const useCreatePayment = ({ vehicles }: Props) => {
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -14,7 +19,7 @@ export const useCreatePayment = () => {
     resolver: zodResolver(paymentSchema),
     defaultValues: {
       amount: undefined,
-      vehicleId: undefined,
+      vehicleId: vehicles.find((vehicle) => vehicle.isMain)?.id || undefined,
     },
   });
 
@@ -27,7 +32,6 @@ export const useCreatePayment = () => {
     const request = {
       ...values,
       vehicleId: values.vehicleId,
-      //TODO: ajustar al usuario en curso y el auto
       userId: session!.user.id!,
     };
     const response = await createPayment([request]);

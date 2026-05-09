@@ -17,9 +17,17 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
+import { Vehicle } from "@prisma/client";
+import { Checkbox } from "@/components/ui/checkbox";
 
-export const FormVehicle = () => {
-  const { form, handleReset, onSubmit } = useCreateVehicle();
+interface Props {
+  vehicle?: Vehicle;
+  isEdit?: boolean;
+}
+
+export const FormVehicle = (props: Props) => {
+  const { vehicle, isEdit = false } = props;
+  const { form, handleReset, onSubmit } = useCreateVehicle({ vehicle, isEdit });
 
   return (
     <div className=" w-full flex justify-center items-center">
@@ -28,10 +36,11 @@ export const FormVehicle = () => {
         style={{ background: "var(--card-background)" }}
       >
         <CardHeader>
-          <CardTitle>Agrega un vehiculo a tu usuario</CardTitle>
+          <CardTitle>{isEdit ? "Editar Vehículo" : "Agregar un Vehículo a tu perfil"}</CardTitle>
           <CardDescription>
-            Si ya tienes vehiculos registrados, podras agregar otros como
-            opcionales.
+            {isEdit
+              ? "Modifica los detalles de tu vehículo"
+              : "Completa el formulario para agregar un nuevo vehículo a tu perfil"}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -107,12 +116,29 @@ export const FormVehicle = () => {
                   </Field>
                 )}
               />
+              <Controller
+                name="isMain"
+                control={form.control}
+                render={({ field }) => (
+                  <Field orientation="horizontal">
+                    <Checkbox
+                      id="terms-checkbox-basic"
+                      name="terms-checkbox-basic"
+                      checked={field.value}
+                      onCheckedChange={(checked) => field.onChange(checked)}
+                    />
+                    <FieldLabel htmlFor="terms-checkbox-basic">
+                      Establecer como vehículo principal
+                    </FieldLabel>
+                  </Field>
+                )}
+              />
             </FieldGroup>
           </form>
         </CardContent>
         <CardFooter className="w-full flex flex-wrap gap-4">
           <Button className="flex flex-1" type="submit" form="form-rhf-demo">
-            Crear
+            {isEdit ? "Actualizar" : "Crear"}
           </Button>
           <Button
             type="button"

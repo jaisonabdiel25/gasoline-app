@@ -1,5 +1,6 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useUserStore } from "@/zustand/store/useUserStore";
 
 interface Props {
   avatarUrl: string;
@@ -9,9 +10,11 @@ interface Props {
 
 export const CustomAvatar = (props: Props) => {
   const { avatarUrl, className, userFallback } = props;
+
+  const { userUrl } = useUserStore();
   return (
     <Avatar className={className}>
-      <AvatarImage src={avatarUrl} alt="@shadcn" />
+      <AvatarImage src={userUrl ?? avatarUrl} alt="@shadcn" />
       <AvatarFallback>{userFallback}</AvatarFallback>
     </Avatar>
   );
