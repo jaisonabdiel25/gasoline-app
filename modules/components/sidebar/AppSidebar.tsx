@@ -16,7 +16,7 @@ import { CustomAvatar } from "../avatar/CustomAvatar";
 
 import Link from "next/link";
 import { SidebarFooter as CustomSidebarFooter } from "./SidebarFooter";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 export async function AppSidebar() {
   const session = await getServerSession(authOptions);

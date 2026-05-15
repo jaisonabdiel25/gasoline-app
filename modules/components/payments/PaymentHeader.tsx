@@ -19,7 +19,7 @@ export const PaymentHeader = ({ generalInformation = [] }: Props) => {
     totalAmountPayments,
     totalAmountCurrentMonth,
     averagePayments,
-    paymentCount,
+    totalPayments,
     loading,
   } = useGeneralInformation({generalInformation});
 
@@ -85,7 +85,7 @@ export const PaymentHeader = ({ generalInformation = [] }: Props) => {
             >
               <ItemContent className="flex flex-col items-center justify-center gap-2">
                 <ItemTitle className="text-3xl 2xl:text-5xl">
-                  {paymentCount}
+                  {totalPayments}
                 </ItemTitle>
                 <ItemTitle className="text-xs text-muted-foreground text-center">
                   Total de pagos realizados

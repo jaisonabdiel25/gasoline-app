@@ -1,5 +1,5 @@
 import { UserRegisterValues } from "@/interface/user";
-import { resgisterUser, updateUser } from "@/services/user";
+import { registerUser, updateUser } from "@/services/user";
 import { registerUserSchema } from "@/validator/zod/user";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { User } from "@prisma/client";
@@ -35,7 +35,7 @@ export const useRegisterUser = ({ user, isEdit = false }: Props) => {
   };
 
   const createUser = async (values: UserRegisterValues) => {
-    const { isSuccess } = await resgisterUser(values);
+    const { isSuccess } = await registerUser(values);
 
     if (isSuccess) {
       router.push("/signin");

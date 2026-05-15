@@ -8,14 +8,17 @@ datasource db {
 }
 
 model Payment {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   amount    Float
-  createdAt DateTime  @default(now()) @db.Timestamptz
-  updatedAt DateTime? @db.Timestamptz
-  user      User      @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  vehicle   Vehicle   @relation(fields: [vehicleId], references: [id])
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Restrict)
   vehicleId String
+
+  @@index([userId])
+  @@index([vehicleId])
 }
 
 model Vehicle {
@@ -24,12 +27,14 @@ model Vehicle {
   model     String?
   year      Int?
   createdAt DateTime  @default(now()) @db.Timestamptz
-  updatedAt DateTime? @db.Timestamptz
+  updatedAt DateTime  @updatedAt @db.Timestamptz
   payments  Payment[]
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   isMain    Boolean   @default(false)
   isActive  Boolean   @default(true)
   userId    String
+
+  @@index([userId])
 }
 
 //AuthJs

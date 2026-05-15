@@ -6,11 +6,11 @@ export const registerUserSchema = (isEdit: boolean) =>
       name: z.string().min(2, "El nombre debe tener al menos 3 caracteres"),
 
       email: isEdit
-        ? z.any().optional() // 👈 no valida nada
+        ? z.any().optional()
         : z.string().email("Correo inválido"),
 
       password: isEdit
-        ? z.any().optional() // 👈 no valida nada
+        ? z.any().optional()
         : z
             .string()
             .min(8, "La contraseña debe tener al menos 8 caracteres")
@@ -19,7 +19,7 @@ export const registerUserSchema = (isEdit: boolean) =>
             .regex(/[0-9]/, "Debe tener al menos un número"),
 
       passwordConfirm: isEdit
-        ? z.any().optional() // 👈 no valida nada
+        ? z.any().optional()
         : z
             .string()
             .min(8, "La contraseña debe tener al menos 8 caracteres")
@@ -29,7 +29,7 @@ export const registerUserSchema = (isEdit: boolean) =>
     })
     .refine(
       (data) => {
-        if (isEdit) return true; // 👈 no valida nada en edit
+        if (isEdit) return true;
         return data.password === data.passwordConfirm;
       },
       {
