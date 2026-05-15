@@ -1,6 +1,6 @@
 import { CustomResponse, Ids } from "@/interface/global";
 import { CreatePaymentInterface } from "@/interface/payment";
-import { Payment } from "@prisma/client";
+import { Payment } from "@/interface/payment";
 
 export const createPayment = async (
   body: CreatePaymentInterface[],

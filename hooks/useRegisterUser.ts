@@ -2,7 +2,7 @@ import { UserRegisterValues } from "@/interface/user";
 import { registerUser, updateUser } from "@/services/user";
 import { registerUserSchema } from "@/validator/zod/user";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "@prisma/client";
+import { User } from "@/interface/user";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 

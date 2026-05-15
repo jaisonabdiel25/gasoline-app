@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       select: { id: true },
     });
 
-    const existingUserIds = new Set(existingUsers.map((user) => user.id));
+    const existingUserIds = new Set(existingUsers.map((user: { id: string }) => user.id));
 
     const invalidUserIds =
       userIds?.filter((userId) => !existingUserIds.has(userId)) ?? [];
@@ -79,7 +79,7 @@ export async function DELETE(request: NextRequest) {
       where: { id: { in: ids } },
       select: { id: true },
     });
-    const existingVehicleIds = new Set(existingVehicle.map(({ id }) => id));
+    const existingVehicleIds = new Set(existingVehicle.map(({ id }: { id: string }) => id));
 
     const invalidvehiclesIds =
       ids?.filter((userId) => !existingVehicleIds.has(userId)) ?? [];

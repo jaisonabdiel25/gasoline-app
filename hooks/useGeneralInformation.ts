@@ -1,4 +1,5 @@
 import { VehicleWithRelations } from "@/interface/vehicle";
+import { Payment } from "@/interface/payment";
 import { useMemo } from "react";
 import { startOfMonth, endOfMonth, isWithinInterval } from "date-fns";
 
@@ -21,7 +22,7 @@ export const useGeneralInformation = ({ generalInformation }: Props) => {
             (acc, vehicle) =>
               acc +
               vehicle.payments.reduce(
-                (accPayments, payment) => accPayments + payment.amount,
+                (accPayments: number, payment: Payment) => accPayments + payment.amount,
                 0,
               ),
             0,
@@ -33,7 +34,7 @@ export const useGeneralInformation = ({ generalInformation }: Props) => {
             }
 
             const totalVehicle = vehicle.payments.reduce(
-              (accPayments, payment) => accPayments + payment.amount,
+              (accPayments: number, payment: Payment) => accPayments + payment.amount,
               0,
             );
 
@@ -51,7 +52,7 @@ export const useGeneralInformation = ({ generalInformation }: Props) => {
       generalInformation.reduce((total, vehicle) => {
         return (
           total +
-          vehicle.payments.reduce((subTotal, payment) => {
+          vehicle.payments.reduce((subTotal: number, payment: Payment) => {
             const paymentDate = new Date(payment.createdAt);
 
             return isWithinInterval(paymentDate, { start, end })

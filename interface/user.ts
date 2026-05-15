@@ -1,3 +1,5 @@
+export type { User } from "@prisma/client";
+
 export interface LoginUser {
     email: string;
     password: string

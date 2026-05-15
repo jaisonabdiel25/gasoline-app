@@ -17,7 +17,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Controller } from "react-hook-form";
-import { Vehicle } from "@prisma/client";
+import { Vehicle } from "@/interface/vehicle";
 import { CustomSelect } from "@/components/CustomSelect";
 import { useMemo } from "react";
 

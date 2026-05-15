@@ -1,7 +1,7 @@
 "use client";
 
 import { updateImageUser } from "@/services/user";
-import { User } from "@prisma/client";
+import { User } from "@/interface/user";
 
 import { CustomAvatar } from "../../avatar/CustomAvatar";
 import { Pencil } from "lucide-react";

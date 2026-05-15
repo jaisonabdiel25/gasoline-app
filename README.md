@@ -21,7 +21,7 @@ Aplicación web para registrar y analizar los pagos de combustible por vehículo
 1. **Clonar el repositorio e instalar dependencias**
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. **Configurar variables de entorno**
@@ -61,7 +61,7 @@ Aplicación web para registrar y analizar los pagos de combustible por vehículo
 5. **Iniciar el servidor de desarrollo**
 
    ```bash
-   npm run dev
+   pnpm dev
    ```
 
    La app estará disponible en [http://localhost:3000](http://localhost:3000).
@@ -70,10 +70,10 @@ Aplicación web para registrar y analizar los pagos de combustible por vehículo
 
 | Comando | Descripción |
 |---|---|
-| `npm run dev` | Servidor de desarrollo |
-| `npm run build` | Build de producción |
-| `npm run start` | Servidor de producción |
-| `npm run lint` | Linter |
+| `pnpm dev` | Servidor de desarrollo |
+| `pnpm build` | Build de producción |
+| `pnpm start` | Servidor de producción |
+| `pnpm lint` | Linter |
 | `npx prisma migrate dev --name <nombre>` | Crear y aplicar nueva migración |
 | `npx prisma generate` | Regenerar Prisma Client |
 | `npx prisma studio` | GUI para explorar la base de datos |
