@@ -7,7 +7,7 @@ import { User } from "@prisma/client";
 
 const saltRounds = 10;
 
-export const resgisterUser = async (
+export const registerUser = async (
   user: UserRegisterValues,
 ): Promise<CustomResponse<User>> => {
   try {

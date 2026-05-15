@@ -64,7 +64,7 @@ export function FilterPayment() {
     setOpen(false);
   };
 
-  const handleDeleteFelters = () => {
+  const handleDeleteFilters = () => {
     resetField("from");
     resetField("to");
     router.replace(pathname);
@@ -118,7 +118,7 @@ export function FilterPayment() {
           </FieldGroup>
           <DialogFooter>
             <DialogClose asChild>
-              <Button onClick={() => handleDeleteFelters()} variant="outline">
+              <Button onClick={() => handleDeleteFilters()} variant="outline">
                 Cancelar
               </Button>
             </DialogClose>

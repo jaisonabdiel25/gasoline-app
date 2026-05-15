@@ -8,7 +8,7 @@ interface Props {
 
 export const useGeneralInformation = ({ generalInformation }: Props) => {
 
-  const { totalPayments, totalAmountPayments, averagePayments, paymentCount } =
+  const { totalPayments, totalAmountPayments, averagePayments } =
     useMemo(() => {
       return {
         totalPayments:
@@ -29,7 +29,7 @@ export const useGeneralInformation = ({ generalInformation }: Props) => {
         averagePayments:
           generalInformation.reduce((acc, vehicle) => {
             if (vehicle.payments.length === 0) {
-              return acc; // no suma nada
+              return acc;
             }
 
             const totalVehicle = vehicle.payments.reduce(
@@ -39,11 +39,6 @@ export const useGeneralInformation = ({ generalInformation }: Props) => {
 
             return acc + totalVehicle / vehicle.payments.length;
           }, 0) || 0,
-        paymentCount:
-          generalInformation.reduce(
-            (acc, vehicle) => acc + vehicle.payments.length,
-            0,
-          ) || 0,
       };
     }, [generalInformation]);
 
@@ -71,7 +66,6 @@ export const useGeneralInformation = ({ generalInformation }: Props) => {
   return {
     loading: false,
     totalPayments,
-    paymentCount,
     totalAmountPayments,
     totalAmountCurrentMonth,
     averagePayments,

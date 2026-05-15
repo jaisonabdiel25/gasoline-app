@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { PaymentHeader } from "@/modules/components/payments/PaymentHeader";
 import { getGeneralInformation } from "@/services/generalInformation";
 import type { Metadata } from "next";

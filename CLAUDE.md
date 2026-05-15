@@ -1,0 +1,32 @@
+
+## Architecture
+
+**Fuel payment tracking app** — users register fuel payments per vehicle, view statistics, and manage their profile.
+
+**Next.js App Router with two route groups:**
+- `app/(app)/` — authenticated pages (`/payment`, `/vehicle`, `/profile`)
+- `app/(auth)/` — public pages (`/signin`, `/register`)
+- `app/api/` — REST API routes (payment, vehicle, user, auth)
+
+**Data flow:**
+1. Pages call custom hooks in `hooks/` (e.g., `useCreatePayment`, `useVehicle`)
+2. Hooks call service functions in `services/` which hit the API routes
+3. API routes use Prisma directly via `lib/prisma.ts`
+4. Forms validated with `validator/` schemas (Yup/Zod via React Hook Form)
+5. TypeScript interfaces centralized in `interface/`
+
+**State management:** Zustand for global UI state; React Hook Form for form state.
+
+**Auth:** NextAuth.js v4 with credentials (email/password via bcrypt) and GitHub OAuth. `middleware.ts` protects `/payment/*` and `/profile/*` routes.
+
+**Database:** PostgreSQL via Prisma ORM. Schema at `prisma/schema.prisma` — main models: `User`, `Payment`, `Vehicle`.
+
+**UI:** shadcn/ui (New York style) + Radix UI primitives + TailwindCSS v4. Charts via Recharts. Notifications via Sonner. Icons via Lucide. Dark mode via `next-themes`.
+
+**Images:** Cloudinary for profile photo uploads.
+
+**Key files:**
+- `lib/prisma.ts` — singleton Prisma client
+- `constant.tsx` — app-wide constants
+- `next.config.ts` — standalone output, allowed image domains (Google, Gravatar, Cloudinary)
+- `components.json` — shadcn/ui config
