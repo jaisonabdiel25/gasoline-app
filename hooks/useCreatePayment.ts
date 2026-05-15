@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { createPayment } from "@/services";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
-import { Vehicle } from "@prisma/client";
+import { Vehicle } from "@/interface/vehicle";
 
 interface Props {
   vehicles: Vehicle[];

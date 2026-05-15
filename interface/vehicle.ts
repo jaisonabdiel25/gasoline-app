@@ -1,5 +1,7 @@
 import { Prisma } from "@prisma/client";
 
+export type { Vehicle } from "@prisma/client";
+
 export interface VehicleValues {
   name: string;
   isMain: boolean;
