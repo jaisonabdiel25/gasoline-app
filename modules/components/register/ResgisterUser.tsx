@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { useRegisterUser } from "@/hooks/useRegisterUser";
-import { User } from "@prisma/client";
+import { User } from "@/interface/user";
 import { useRouter } from "next/navigation";
 import { Controller } from "react-hook-form";
 

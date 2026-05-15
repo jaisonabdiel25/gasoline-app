@@ -8,7 +8,7 @@ import {
   ItemTitle,
 } from "@/components/ui/item";
 import { deleteVehicles } from "@/services";
-import { Vehicle } from "@prisma/client";
+import { Vehicle } from "@/interface/vehicle";
 import { PencilIcon, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";

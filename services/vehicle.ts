@@ -2,7 +2,7 @@
 import { CustomResponse, Ids } from "@/interface/global";
 import { VehicleValues } from "@/interface/vehicle";
 import { prisma } from "@/lib/prisma";
-import { Vehicle } from "@prisma/client";
+import { Vehicle } from "@/interface/vehicle";
 
 export const createVehicle = async (
   values: VehicleValues,

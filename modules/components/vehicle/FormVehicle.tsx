@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Controller } from "react-hook-form";
-import { Vehicle } from "@prisma/client";
+import { Vehicle } from "@/interface/vehicle";
 import { Checkbox } from "@/components/ui/checkbox";
 
 interface Props {

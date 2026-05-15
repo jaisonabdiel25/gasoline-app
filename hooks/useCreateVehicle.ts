@@ -2,7 +2,7 @@ import { VehicleValues } from "@/interface/vehicle";
 import { createVehicle, updateVehicle } from "@/services";
 import { formSchemaVehicle } from "@/validator/zod/vehicle";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Vehicle } from "@prisma/client";
+import { Vehicle } from "@/interface/vehicle";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";

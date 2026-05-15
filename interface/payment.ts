@@ -1,4 +1,7 @@
 import { Prisma } from "@prisma/client";
+
+export type { Payment } from "@prisma/client";
+
 export interface CreatePaymentInterface {
   amount: number;
   vehicleId: string;
