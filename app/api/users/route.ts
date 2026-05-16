@@ -23,6 +23,7 @@ export const POST = async (request: NextRequest) => {
 
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error(error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 };

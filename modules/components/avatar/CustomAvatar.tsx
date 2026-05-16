@@ -14,7 +14,7 @@ export const CustomAvatar = (props: Props) => {
   const { userUrl } = useUserStore();
   return (
     <Avatar className={className}>
-      <AvatarImage src={userUrl ?? avatarUrl} alt="@shadcn" />
+      <AvatarImage src={userUrl ?? avatarUrl} alt="@shadcn" className="object-cover" />
       <AvatarFallback>{userFallback}</AvatarFallback>
     </Avatar>
   );

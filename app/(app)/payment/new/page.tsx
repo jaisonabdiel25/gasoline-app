@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import { CustomEmpty } from "@/components/CustomEmpty";
 import { prisma } from "@/lib/prisma";
 import { FormPayment } from "@/modules";

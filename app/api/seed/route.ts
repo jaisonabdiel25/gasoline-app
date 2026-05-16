@@ -1,30 +1,9 @@
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  await prisma.payment.deleteMany();
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json({ error: "Not available" }, { status: 403 });
+  }
 
-  const payment = await prisma.payment.createMany({
-    data: [
-      {
-        amount: 45,
-      },
-            {
-        amount: 15,
-      },
-            {
-        amount: 20,
-      },
-            {
-        amount: 50,
-      },
-            {
-        amount: 100,
-      },
-    ],
-  });
-
-  console.log("Payment created:", payment);
-
-  return NextResponse.json({ messagge: "seed execute" });
+  return NextResponse.json({ message: "seed execute" });
 }

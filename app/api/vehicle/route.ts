@@ -1,10 +1,17 @@
+import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { deleteValidator } from "@/validator/commonValidator";
 import { createValidator } from "@/validator/vehicles";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
 
     const vehicleToCreate = await createValidator.validate(body);
@@ -16,7 +23,7 @@ export async function POST(request: NextRequest) {
       select: { id: true },
     });
 
-    const existingUserIds = new Set(existingUsers.map((user) => user.id));
+    const existingUserIds = new Set(existingUsers.map((user: { id: string }) => user.id));
 
     const invalidUserIds =
       userIds?.filter((userId) => !existingUserIds.has(userId)) ?? [];
@@ -50,12 +57,18 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error(error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
 export async function DELETE(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const body = await request.json();
 
     const listId = await deleteValidator.validate(body);
@@ -66,7 +79,7 @@ export async function DELETE(request: NextRequest) {
       where: { id: { in: ids } },
       select: { id: true },
     });
-    const existingVehicleIds = new Set(existingVehicle.map(({ id }) => id));
+    const existingVehicleIds = new Set(existingVehicle.map(({ id }: { id: string }) => id));
 
     const invalidvehiclesIds =
       ids?.filter((userId) => !existingVehicleIds.has(userId)) ?? [];
@@ -84,6 +97,7 @@ export async function DELETE(request: NextRequest) {
 
     return NextResponse.json(result);
   } catch (error) {
-    return NextResponse.json({ error }, { status: 500 });
+    console.error(error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

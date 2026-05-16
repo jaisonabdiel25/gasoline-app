@@ -3,11 +3,11 @@ import bcrypt from "bcrypt";
 import { UserRegisterValues } from "@/interface/user";
 import { prisma } from "@/lib/prisma";
 import { CustomResponse } from "@/interface/global";
-import { User } from "@prisma/client";
+import { User } from "@/interface/user";
 
 const saltRounds = 10;
 
-export const resgisterUser = async (
+export const registerUser = async (
   user: UserRegisterValues,
 ): Promise<CustomResponse<User>> => {
   try {

@@ -1,7 +1,7 @@
 "use client";
 
 import { updateImageUser } from "@/services/user";
-import { User } from "@prisma/client";
+import { User } from "@/interface/user";
 
 import { CustomAvatar } from "../../avatar/CustomAvatar";
 import { Pencil } from "lucide-react";
@@ -28,6 +28,9 @@ export const UserInfo = ({ user }: Props) => {
 
     const formData = new FormData();
     formData.append("file", file);
+    if (user?.image) {
+      formData.append("oldImageUrl", user.image);
+    }
 
     const res = await fetch("/api/upload", {
       method: "POST",
