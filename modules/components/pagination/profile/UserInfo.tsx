@@ -28,6 +28,9 @@ export const UserInfo = ({ user }: Props) => {
 
     const formData = new FormData();
     formData.append("file", file);
+    if (user?.image) {
+      formData.append("oldImageUrl", user.image);
+    }
 
     const res = await fetch("/api/upload", {
       method: "POST",
